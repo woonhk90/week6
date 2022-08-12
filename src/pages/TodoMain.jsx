@@ -1,9 +1,17 @@
 const TodoMain = () => {
-    return (
+  return (
+    <div>
       <div>
-        <h1>TodoMain</h1>
+        <button>게시글 작성</button>
       </div>
-    );
-  };
-  
-  export default TodoMain;
+
+      <div>
+        <button>게시글 확인</button>
+      </div>
+
+      <div>로그인</div>
+    </div>
+  );
+};
+
+export default TodoMain;

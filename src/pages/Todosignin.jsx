@@ -1,9 +1,7 @@
+import Signin from "../components/Signin";
+
 const Todosignin = () => {
-    return (
-      <div>
-        <h1>Todosignin</h1>
-      </div>
-    );
-  };
-  
-  export default Todosignin;
+  return <Signin />;
+};
+
+export default Todosignin;
