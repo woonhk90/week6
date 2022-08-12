@@ -1,9 +1,11 @@
+import MainTodo from "../components/MainTodo";
+
 const TodoListPage = () => {
-    return (
-      <div>
-        <h1>TodoListPage</h1>
-      </div>
-    );
-  };
-  
-  export default TodoListPage;
+  return (
+    <div>
+      <MainTodo />
+    </div>
+  );
+};
+
+export default TodoListPage;
