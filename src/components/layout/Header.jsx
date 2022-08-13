@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <StContainer>
-      <StHeaderTitle to='/'>Header</StHeaderTitle>
+      <StHeaderTitle to='/main'>Header</StHeaderTitle>
     </StContainer>
   );
 };
@@ -23,4 +23,6 @@ const StHeaderTitle = styled(Link)`
   margin: 16px 0;
   display: inline-block;
   cursor: pointer;
+  text-decoration: none;
+  color: black;
 `;
