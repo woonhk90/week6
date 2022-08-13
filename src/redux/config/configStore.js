@@ -1,11 +1,11 @@
-import etcSlice from "../modules/etcSlice";
+import { configureStore } from "@reduxjs/toolkit";
+import todo from "../modules/todoSlice";
 
-const { configureStore } = require("@reduxjs/toolkit");
-
-const store = configureStore({
+export const store = configureStore({
+  //   devTools : process.env.NODE_ENV !== "production",
   reducer: {
-    etc: etcSlice,
+    todo,
   },
 });
 
-export default store;
+// export default store;
