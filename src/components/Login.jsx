@@ -1,27 +1,35 @@
 import React from "react";
 import styled from "styled-components";
-import CommonInput from "../components/elements/CommonInput";
+
 import CommonWhiteButton from "../components/elements/CommonWhiteButton";
 import CommonBlueButton from "../components/elements/CommonBlueButton";
+import LoginInput from "../components/elements/LoginInput";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
+
+  const onSubmitHandler = () => {
+    navigate("/main");
+  };
+
   return (
     <StConatainer>
       <form>
         <h1>Login</h1>
         <StInput>
-          <CommonInput label='ID' />
+          <LoginInput label='ID' />
         </StInput>
 
         <StInput>
-          <CommonInput label='PASSWORD' />
+          <LoginInput label='PASSWORD' />
         </StInput>
 
         <Stbutton>
-          <CommonWhiteButton varient='로그인' />
+          <CommonWhiteButton text='로그인' onClick={onSubmitHandler} />
         </Stbutton>
 
         <Stbutton>
-          <CommonBlueButton varient='회원가입' />
+          <CommonBlueButton text='회원가입' />
         </Stbutton>
       </form>
     </StConatainer>

@@ -1,16 +1,14 @@
+import Layout from "../components/layout/Layout";
+import MainButton from "../components/elements/MainpageButton";
+import Header from "../components/layout/Header";
+
 const TodoMain = () => {
   return (
-    <div>
-      <div>
-        <button>게시글 작성</button>
-      </div>
-
-      <div>
-        <button>게시글 확인</button>
-      </div>
-
-      <div>로그인</div>
-    </div>
+    <Layout>
+      <Header />
+      <MainButton writePage={true} text='게시글 작성' />
+      <MainButton listPage={true} text='게시글 확인' />
+    </Layout>
   );
 };
 
