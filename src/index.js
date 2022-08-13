@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 // 우리가 추가할 코드
-import store from "./redux/config/configStore";
+import {store} from "./redux/config/configStore";
 import { Provider } from "react-redux";
 import { BrowserRouter } from 'react-router-dom';
 

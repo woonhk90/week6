@@ -3,7 +3,8 @@ import axios from "axios";
 
 
 const initialState = {
-  userInfo:{}
+  userInfo:{},
+  todo:[],
 };
 
 export const __postUserInfo = createAsyncThunk("todos/postTodos", async (payload, thunkAPI) => {

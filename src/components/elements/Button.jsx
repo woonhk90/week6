@@ -1,11 +1,44 @@
-import React from "react";
+import styled, { css } from "styled-components";
 
-const Button = () => {
-    return(
-        <>
-            <h1>Button</h1>
-        </>
-    )
-}
+const Button = ({ btntype, type, onClick, children, uibutton }) => {
+  return (
+    <StButton type={type} onClick={onClick} btntype={btntype}>
+      {children}
+    </StButton>
+  );
+};
 
 export default Button;
+
+const StButton = styled.button`
+  border-radius: 8px;
+  cursor: pointer;
+  ${(props) => {
+    return (
+      props.btntype === 'login' &&
+      css`
+        border: 1px solid rgb(221, 221, 221);
+        background-color: white;
+        :hover{
+          border: 1px solid rgb(254, 83, 31);
+        }
+        width: 100%;
+        height: 50px;
+      `
+    );
+  }}
+  ${(props) => {
+    return (
+      props.btntype === 'signup' &&
+      css`
+        border: 1px solid rgb(221, 221, 221);
+        background-color: white;
+        :hover{
+          border: 1px solid rgb(254, 83, 31);
+        }
+        width: 100%;
+        height: 50px;
+      `
+    );
+  }}
+`;
