@@ -13,7 +13,8 @@ const TodoRouter = () => {
         <Route path="/todoform" element={<TodoFormPage />} />
         <Route path="/tododetail/:id" element={<TodoDetailPage />} /> */}
       </Routes>
+
   );
 };
 
-export default TodoRouter;
+export default Router;

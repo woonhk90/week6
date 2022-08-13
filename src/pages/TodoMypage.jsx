@@ -1,9 +1,7 @@
+import Mypage from "../components/Mypage";
+
 const TodoMypage = () => {
-    return (
-      <div>
-        <h1>TodoMypage</h1>
-      </div>
-    );
-  };
-  
-  export default TodoMypage;
+  return <Mypage />;
+};
+
+export default TodoMypage;

@@ -1,9 +1,11 @@
+import Form from "../components/Form";
+
 const TodoFrom = () => {
-    return (
-      <div>
-        <h1>TodoFrom</h1>
-      </div>
-    );
-  };
-  
-  export default TodoFrom;
+  return (
+    <div>
+      <Form />
+    </div>
+  );
+};
+
+export default TodoFrom;
