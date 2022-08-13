@@ -1,15 +1,11 @@
-import React from "react";
-import Login from "../components/Login";
-import Layout from "../components/layout/Layout";
-import Header from "../components/layout/Header";
-
+import React from 'react';
+import Login from '../components/Login'
 const TodoLogin = () => {
-  return (
-    <Layout>
-      <Header />
-      <Login />
-    </Layout>
-  );
-};
-
-export default TodoLogin;
+    return (
+      <>
+        <Login/>
+      </>
+    );
+  };
+  
+  export default TodoLogin;

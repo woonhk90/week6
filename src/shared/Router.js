@@ -1,25 +1,19 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import TodoDetail from "../pages/TodoDetail";
-import TodoForm from "../pages/TodoForm";
-import TodoList from "../pages/TodoList";
-import TodoLogin from "../pages/TodoLogin";
-import TodoMain from "../pages/TodoMain";
-import TodoMypage from "../pages/TodoMypage";
-import TodoSignin from "../pages/TodoSignin";
+import TodoLogin from '../pages/TodoLogin';
+import TodoSignin from '../pages/TodoSignin';
+import { Routes, Route } from 'react-router-dom';
 
-const Router = () => {
+
+const TodoRouter = () => {
   return (
-    <BrowserRouter>
       <Routes>
-        <Route path='/' element={<TodoLogin />} />
-        <Route path='/list' element={<TodoList />} />
-        <Route path='/form' element={<TodoForm />} />
-        <Route path='/detail' element={<TodoDetail />} />
-        <Route path='/main' element={<TodoMain />} />
-        <Route path='/mypage' element={<TodoMypage />} />
-        <Route path='/signin' element={<TodoSignin />} />
+        <Route path="/" element={<TodoLogin />} />
+        <Route path="/api/signup" element={<TodoSignin />} />
+        <Route path="/api/login" element={<TodoLogin />} />
+        {/* <Route path="/todolist" element={<TodoListPage />} />
+        <Route path="/todoform" element={<TodoFormPage />} />
+        <Route path="/tododetail/:id" element={<TodoDetailPage />} /> */}
       </Routes>
-    </BrowserRouter>
+
   );
 };
 
