@@ -3,14 +3,14 @@ import axios from "axios";
 
 
 const initialState = {
-  userInfo:{},
+  userInfo:[],
   todo:[],
 };
 
 export const __postUserInfo = createAsyncThunk("todos/postTodos", async (payload, thunkAPI) => {
   try {
     console.log('__postUserInfo=>',payload);
-    // const data = await axios.post("http://localhost:3001/todos", payload);
+    // const data = await axios.post(`http://localhost:3001/${payload}`, payload);
     // return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     // return thunkAPI.rejectWithValue(error);
