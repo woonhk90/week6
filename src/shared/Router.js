@@ -9,17 +9,16 @@ import TodoSignin from "../pages/TodoSignin";
 
 const Router = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<TodoLogin />} />
-        <Route path='/list' element={<TodoListPage />} />
-        <Route path='/form' element={<TodoForm />} />
-        <Route path='/detail' element={<TodoDetail />} />
-        <Route path='/main' element={<TodoMain />} />
-        <Route path='/mypage' element={<TodoMypage />} />
-        <Route path='/signin' element={<TodoSignin />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path='/' element={<TodoLogin />} />
+      <Route path='/list' element={<TodoListPage />} />
+      <Route path='/form' element={<TodoForm />} />
+      <Route path='/detail' element={<TodoDetail />} />
+      <Route path='/main' element={<TodoMain />} />
+      <Route path='/mypage' element={<TodoMypage />} />
+      <Route path='/api/signup' element={<TodoSignin />} />
+      <Route path='/api/login' element={<TodoLogin />} />
+    </Routes>
   );
 };
 
