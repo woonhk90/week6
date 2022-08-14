@@ -11,22 +11,22 @@ const MainTodo = (props) => {
   const navigate = useNavigate();
 
   return (
-    <StTodoList onClick={() => navigate(`/detail/${props.todo.id}`)}>
+    <StTodoList onClick={() => navigate(`/detail/`)}>
       <StTextContainer>
         <StListtitleheart>
           <StListtitle>제목:{props.todo.title}</StListtitle>
-          <Stheart
+          {/* <Stheart
             onClick={(e) => {
               e.stopPropagation();
             }}
           >
             좋아요
-          </Stheart>
+          </Stheart> */}
         </StListtitleheart>
 
         <StListWriter>작성자:</StListWriter>
 
-        <Stdeleteandtime>
+        {/* <Stdeleteandtime>
           <CommonWhiteButton
             text='삭제하기'
             width='10ch'
@@ -36,7 +36,7 @@ const MainTodo = (props) => {
             }}
           />
           <Stwritetime>2022.08.xx</Stwritetime>
-        </Stdeleteandtime>
+        </Stdeleteandtime> */}
       </StTextContainer>
     </StTodoList>
   );

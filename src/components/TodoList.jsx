@@ -6,17 +6,17 @@ import { __getTodos } from "../redux/modules/etcSlice";
 
 const TodoList = () => {
   const dispatch = useDispatch();
-  const worries = useSelector((state) => state.todos.todos);
+  const todos = useSelector((state) => state.etc.todos);
 
   useEffect(() => {
     dispatch(__getTodos());
   }, [dispatch]);
-
+  console.log(todos);
   return (
     <div>
       <StTodoList>
-        {worries?.map((todo) => (
-          <MainTodo key={todo.id} todo={todo}></MainTodo>
+        {todos?.map((todo) => (
+          <MainTodo key={todo.id} todo={todo} />
         ))}
       </StTodoList>
     </div>
