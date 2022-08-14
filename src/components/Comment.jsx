@@ -6,13 +6,14 @@ const Comment = () => {
     <StCommentbox>
       <StCommentinput>
         <span>
-          작성자
-          <StCommentInput />
+          작성자명
+          <StCommentInput placeholder='내용을 입력해주세요.' />
         </span>
         <CommonWhiteButton text='댓글추가' />
       </StCommentinput>
       <StCommentlist>
-        내용
+        작성자명
+        <div>댓글내용</div>
         <CommonWhiteButton text='삭제하기' />
       </StCommentlist>
     </StCommentbox>

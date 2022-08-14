@@ -5,8 +5,8 @@ import Header from "../components/layout/Header";
 const TodoDetail = () => {
   return (
     <div>
-      <Header />
       <Layout>
+        <Header />
         <Detail />
       </Layout>
     </div>

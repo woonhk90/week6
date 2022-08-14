@@ -4,11 +4,20 @@ import styled from "styled-components";
 import Comment from "../components/Comment";
 import CommonWhiteButton from "../components/elements/CommonWhiteButton";
 import CommonBlueButton from "../components/elements/CommonBlueButton";
+import { useNavigate } from "react-router-dom";
 
 const CommentList = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <Stbox>
+        <StDetailcommentbox>
+          <CommonWhiteButton
+            text='이전으로'
+            width='100px'
+            onClick={() => navigate(`/list`)}
+          />
+        </StDetailcommentbox>
         <Stdetailtitle>123</Stdetailtitle>
         <Stdetailcontent>123</Stdetailcontent>
       </Stbox>

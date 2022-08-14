@@ -5,8 +5,8 @@ import Header from "../components/layout/Header";
 const TodoForm = () => {
   return (
     <div>
-      <Header />
       <Layout>
+        <Header />
         <Form />
       </Layout>
     </div>
