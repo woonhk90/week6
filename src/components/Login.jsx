@@ -14,14 +14,17 @@ const Login = () => {
     const dispatch = useDispatch();
     const [login, setLogin] = React.useState({
         userId: '',
-        userPw: '',
+        password: '',
     });
     const onSubmitEventHandler = () => {
-
+        dispatch(__postLogin(login));
     }
     const onChangeEventHandler = (e) => {
         const { name, value } = e.target;
-        dispatch(__postLogin(login));
+        setLogin({
+            ...login,
+            [name]: value
+        })
     }
     return (
         <>
@@ -30,10 +33,10 @@ const Login = () => {
                     <LoginTitle>로그인</LoginTitle>
                     <LoginForm>
                         <div>
-                            <Input width={'500px'} id={'user_id'} name={'user_id'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"아이디를 입력하세요."} />
+                            <Input type={'text'} width={'500px'} id={'userId'} name={'userId'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"아이디를 입력하세요."} autoFocus={'autoFocus'}/>
                         </div>
                         <div>
-                            <Input width={'500px'} id={'user_pw'} name={'user_pw'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"비밀번호를 입력하세요."} />
+                            <Input type={'password'} width={'500px'} id={'password'} name={'password'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"비밀번호를 입력하세요."} />
                         </div>
                         <Button btntype="login" onClick={() => (onSubmitEventHandler())}>로그인</Button>
                         <Button btntype="signup" onClick={() => (navigate('/api/signup'))}>회원가입</Button>

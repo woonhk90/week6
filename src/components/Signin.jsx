@@ -12,17 +12,19 @@ const Signin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
-    userName: '',
+    userId: '',
     userNic: '',
-    userPw: '',
-    userPwChk: '',
-    idOverlap: false,
-    NicOverlap: false,
+    password: '',
+    passwordconfirm: '',
+    idOverlap: true,
+    NicOverlap: true,
   })
-
+  // const  {comments}  = useSelector((state) => state.todos);
+  const stateInfo = useSelector((state) => state);
+  console.log('stateInfo=>',stateInfo);
   const [pwChk, setPwChk] = useState('');
 
-  // const comments = useSelector((state) => state.todos.comments); //리턴값 받을꺼임
+  // const comments = useSelector((state) => state); //리턴값 받을꺼임
 
   const onChangeEventHandler = (e) => {
     const { name, value } = e.target;
@@ -32,8 +34,8 @@ const Signin = () => {
     })
 
     /* 비밀번호 일치 하는지 안하는지 */
-    if (name === 'userPwChk') {
-      if (userInfo.userPw === value) {
+    if (name === 'passwordconfirm') {
+      if (userInfo.password === value) {
         setPwChk("비밀번호가 일치합니다.");
       } else {
         setPwChk("비밀번호가 일치하지 않습니다");
@@ -42,9 +44,7 @@ const Signin = () => {
   }
 
   const onSubmitEventHandler = () => {
-    console.log("문자길이", userInfo.userName.length);
-
-    if (userInfo.userName === "") {
+    if (userInfo.userId === "") {
       window.alert("아이디를 입력해주세요.");
       return false;
     }
@@ -61,7 +61,7 @@ const Signin = () => {
       return false;
     }
     let idReg = /^[A-za-z0-9]{5,15}/g;
-    if (!idReg.test(userInfo.userName)) {
+    if (!idReg.test(userInfo.userId)) {
       alert("영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자");
       return false;
     }
@@ -72,11 +72,18 @@ const Signin = () => {
       return false;
     }
 
-    let reg = "^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$";
-    if (!reg.test(userInfo.userPw)) {
+    let pwReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    if (!pwReg.test(userInfo.password)) {
       alert("최소 8 자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자");
       return false;
     }
+
+
+
+    if(userInfo.password==='' || userInfo.passwordconfirm===''){
+      window.alert("비밀번호를 확인해주세요.");
+    }
+
 
     dispatch(__postUserInfo(userInfo));
     console.log('userInfo=>', userInfo);
@@ -87,8 +94,9 @@ const Signin = () => {
   // onClickOverlap('idChk')
   const onClickOverlap = (flag) => {
     if (flag === 'idChk') {
-      dispatch(__postOverlapChk({ flag, val: userInfo.userName }));
-    } else if (flag === "pwChk") {
+      dispatch(__postOverlapChk({ flag, val: userInfo.userId }));
+      // useSelector리턴값 받을꺼임
+    } else if (flag === "NicChk") {
       dispatch(__postOverlapChk({ flag, val: userInfo.userNic }));
     }
   }
@@ -99,25 +107,25 @@ const Signin = () => {
           <SigninTitle>회원가입</SigninTitle>
           <SigninForm>
             <div>
-              <label htmlFor="userName">아이디: </label>
-              <Input type={"text"} width={'600px'} name={"userName"} id={"userName"} onChange={onChangeEventHandler} className="user_Id" placeholder={'영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자'} /><span onClick={() => { onClickOverlap('idChk') }}>중복확인</span>
+              <label htmlFor="userId">아이디: </label>
+              <Input type={"text"} width={'600px'} name={"userId"} id={"userId"} onChange={onChangeEventHandler}placeholder={'영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자'} /><span onClick={() => { onClickOverlap('idChk') }}>중복확인</span>
             </div>
             <div>
               <label htmlFor="userNic">닉네임: </label>
-              <Input type={"text"} width={'600px'} name={"userNic"} id={"userNic"} onChange={onChangeEventHandler} className="user_Nic" /><span onClick={() => { onClickOverlap('pwChk') }}>중복확인</span>
+              <Input type={"text"} width={'600px'} name={"userNic"} id={"userNic"} onChange={onChangeEventHandler}placeholder={'영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자'}/><span onClick={() => { onClickOverlap('NicChk') }}>중복확인</span>
             </div>
             <div>
-              <label htmlFor="userPw">비밀번호 입력: </label>
-              <Input type={"password"} width={'600px'} name={"userPw"} id={"userPw"} onChange={onChangeEventHandler} className="user_Pw" placeholder={'최소 8 자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자'} />
+              <label htmlFor="password">비밀번호 입력: </label>
+              <Input type={"password"} width={'600px'} name={"password"} id={"password"} onChange={onChangeEventHandler}placeholder={'최소 8 자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자'} />
             </div>
             <div>
-              <label htmlFor="userPwChk">비밀번호 확인: </label>
-              <Input type={"password"} width={'600px'} name={"userPwChk"} id={"userPwChk"} onChange={onChangeEventHandler} className="user_Pw_Chk" />
+              <label htmlFor="passwordconfirm">비밀번호 확인: </label>
+              <Input type={"password"} width={'600px'} name={"passwordconfirm"} id={"passwordconfirm"} onChange={onChangeEventHandler}/>
               <PwDoubleChk>{pwChk}</PwDoubleChk>
             </div>
             <ButtonBox>
               <Button btntype="signSubmit" onClick={() => { onSubmitEventHandler() }}>회원가입</Button>
-              <Button btntype="back" onClick={() => { navigate(-1); }}>뒤로가기</Button>
+              <Button btntype="back" onClick={() => { navigate('/api/login'); }}>뒤로가기</Button>
             </ButtonBox>
           </SigninForm>
         </SigninWrap>
