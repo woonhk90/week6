@@ -18,8 +18,21 @@ const Form = () => {
   const dispatch = useDispatch();
 
   const onSubmitHandler = () => {
-    dispatch(__postTodos(todo));
-    navigate("/list");
+    if (todo.title === "" || todo.content === "") {
+      alert("입력하지 않은 항목이 있는지 확인 후 다시 시도해주세요.");
+    } else if (todo.title.length > 50) {
+      alert("제목을 50자 이내로 입력해주세요.");
+    } else if (todo.content.length > 200) {
+      alert("내용을 200자 이내로 입력해주세요.");
+    } else if (
+      todo.title.length <= 50 &&
+      todo.content.length <= 200 &&
+      todo.user !== "" &&
+      todo.title !== ""
+    ) {
+      dispatch(__postTodos(todo));
+      navigate("/list");
+    }
   };
 
   const handleinputTitle = (e) => {
@@ -61,7 +74,12 @@ const Form = () => {
         </div>
 
         <Stbox>
-          <CommonWhiteButton text='추가하기' onClick={onSubmitHandler} />
+          <CommonWhiteButton
+            text='추가하기'
+            onClick={() => {
+              onSubmitHandler(todo);
+            }}
+          />
         </Stbox>
       </form>
     </StFormContainer>

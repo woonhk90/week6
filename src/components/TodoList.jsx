@@ -1,37 +1,37 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import MainTodo from "../components/MainTodo";
+import { __getTodos } from "../redux/modules/etcSlice";
 
 const TodoList = () => {
-  return <StWorryList>asd</StWorryList>;
+  const dispatch = useDispatch();
+  const worries = useSelector((state) => state.todos.todos);
+
+  useEffect(() => {
+    dispatch(__getTodos());
+  }, [dispatch]);
+
+  return (
+    <div>
+      <StTodoList>
+        {worries?.map((todo) => (
+          <MainTodo key={todo.id} todo={todo}></MainTodo>
+        ))}
+      </StTodoList>
+    </div>
+  );
 };
 
 export default TodoList;
 
-const StWorryList = styled.div`
+const StTodoList = styled.div`
   margin-top: 15px;
-  border: solid 1px black;
-  border-radius: 10px;
-  outline-color: #eee;
-  padding: 20px;
-  box-sizing: border-box;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  outline-color: #eee;
 
   &:hover {
     cursor: pointer;
   }
 `;
-
-const StListtitle = styled.div`
-  font-size: 20px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const StListWriter = styled.div`
-  font-size: 15px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-`;
-
-const StTextContainer = styled.div``;

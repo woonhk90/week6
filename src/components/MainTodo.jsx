@@ -1,54 +1,75 @@
 import styled from "styled-components";
-// import IconButton from "@mui/material/IconButton";
-// import DeleteIcon from "@mui/icons-material/Delete";
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import React from "react";
 import CommonWhiteButton from "../components/elements/CommonWhiteButton";
+import { __deleteTodos } from "../redux/modules/etcSlice";
 
 const MainTodo = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   return (
-    <StWorryList onClick={() => navigate(`/detail/`)}>
+    <StTodoList onClick={() => navigate(`/detail/${props.todo.id}`)}>
       <StTextContainer>
-        <StListtitle>제목:</StListtitle>
+        <StListtitleheart>
+          <StListtitle>제목:{props.todo.title}</StListtitle>
+          <Stheart
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            좋아요
+          </Stheart>
+        </StListtitleheart>
+
         <StListWriter>작성자:</StListWriter>
-        <CommonWhiteButton
-          text='삭제하기'
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        />
+
+        <Stdeleteandtime>
+          <CommonWhiteButton
+            text='삭제하기'
+            width='10ch'
+            onClick={(e) => {
+              e.stopPropagation();
+              dispatch(__deleteTodos(props.todo.id));
+            }}
+          />
+          <Stwritetime>2022.08.xx</Stwritetime>
+        </Stdeleteandtime>
       </StTextContainer>
-    </StWorryList>
+    </StTodoList>
   );
 };
 
 export default MainTodo;
 
-const StWorryList = styled.div`
+const StTodoList = styled.div`
   margin-top: 15px;
   border: solid 1px black;
   border-radius: 10px;
   outline-color: #eee;
   padding: 20px;
   box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 
   &:hover {
     cursor: pointer;
   }
 `;
 
-const StListtitle = styled.div`
+const StListtitleheart = styled.div`
   font-size: 20px;
   display: flex;
   justify-content: space-between;
 `;
+
+const Stdeleteandtime = styled.div`
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StListtitle = styled.div``;
 
 const StListWriter = styled.div`
   font-size: 15px;
@@ -57,3 +78,7 @@ const StListWriter = styled.div`
 `;
 
 const StTextContainer = styled.div``;
+
+const Stheart = styled.button``;
+
+const Stwritetime = styled.div``;

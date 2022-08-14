@@ -7,7 +7,6 @@ const initialState = {
   todos: [],
   isLoading: false,
   error: null,
-  comments: [],
 };
 
 export const __getTodos = createAsyncThunk(

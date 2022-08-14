@@ -1,21 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
 import todo from "../modules/todoSlice";
+import etcSlice from "../modules/etcSlice";
 
 export const store = configureStore({
-<<<<<<< HEAD
   //   devTools : process.env.NODE_ENV !== "production",
   reducer: {
     todo,
+    etc: etcSlice,
   },
 });
 
 // export default store;
-=======
+
 //   devTools : process.env.NODE_ENV !== "production",
-  reducer: {
-		todo
-  },
-});
+// reducer: {
+//   todo;
+// }
 
 // export default store;
->>>>>>> main
