@@ -41,4 +41,32 @@ const StButton = styled.button`
       `
     );
   }}
+  ${(props) => {
+    return (
+      props.btntype === 'signSubmit' &&
+      css`
+        border: 1px solid rgb(221, 221, 221);
+        background-color: white;
+        :hover{
+          border: 1px solid rgb(254, 83, 31);
+        }
+        width: 100%;
+        height: 50px;
+      `
+    );
+  }}
+  ${(props) => {
+    return (
+      props.btntype === 'back' &&
+      css`
+        border: 1px solid rgb(221, 221, 221);
+        background-color: white;
+        :hover{
+          border: 1px solid rgb(254, 83, 31);
+        }
+        width: 100%;
+        height: 50px;
+      `
+    );
+  }}
 `;
