@@ -2,15 +2,15 @@ import Form from "../components/Form";
 import Layout from "../components/layout/Layout";
 import Header from "../components/layout/Header";
 
-const TodoFrom = () => {
+const TodoForm = () => {
   return (
     <div>
-      <Header />
       <Layout>
+        <Header />
         <Form />
       </Layout>
     </div>
   );
 };
 
-export default TodoFrom;
+export default TodoForm;

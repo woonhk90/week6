@@ -1,27 +1,35 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import { setRefreshTokenToCookie } from "../../components/Login";
 
 const initialState = {
-  overChk:[],
+  overChk:false,
   userInfo:[],
+  response:[],
   todo:[],
 };
 
 export const __postUserInfo = createAsyncThunk("todos/postSignin", async (payload, thunkAPI) => {
   try {
     console.log('__postUserInfo=>',payload);
-    // const data = await axios.post(`http://localhost:3001/${payload}`, payload);
+    const data = await axios.post(`http://52.78.17.178/api/member/signup`, payload);
+    console.log("로그인데이터:",data);
     // return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     // return thunkAPI.rejectWithValue(error);
   }
 });
+let token=null;
 export const __postLogin = createAsyncThunk("todos/postTodos", async (payload, thunkAPI) => {
   try {
     console.log('__postLogin=>',payload);
-    // const data = await axios.post("http://13.209.21.230:8080/api/member/login", payload);
-    // console.log("로그인데이터:",data);
+    const data = await axios.post("http://52.78.17.178/api/member/login", payload);
+    // const data = await axios.post("http://13.125.104.11:8080/api/member/login", payload);//테스트아이피
+    console.log("로그인성공데이터1:",data);
+    
+    token = data.headers.authorization;
+    setRefreshTokenToCookie(data.headers.authorization);
+
     // return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     // return thunkAPI.rejectWithValue(error);
@@ -29,12 +37,12 @@ export const __postLogin = createAsyncThunk("todos/postTodos", async (payload, t
 });
 export const __postOverlapChk = createAsyncThunk("todos/postOverlap", async (payload, thunkAPI) => {
   try {
-    console.log('__postOverlapChk1=>',payload);
-    // const data = await axios.post("http://13.209.21.230:8080/", payload);
-    // console.log("__postOverlapChk2=>",data)
-  //   return thunkAPI.fulfillWithValue(data.data);
+    console.log("__postOverlapChk__postOverlapChk=>",payload);
+    const data = await axios.post("http://52.78.17.178/api/member/checkup", payload);
+    console.log("__postOverlapChk1=>",data)
+    return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
-    // return thunkAPI.rejectWithValue(error);
+    return thunkAPI.rejectWithValue(error);
   }
 });
 
@@ -52,7 +60,7 @@ export const todoSlice = createSlice({
     },
     [__postUserInfo.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.todos.push(action.payload); // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+      // state.todos.push(action.payload); // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
     },
     [__postUserInfo.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
@@ -63,7 +71,9 @@ export const todoSlice = createSlice({
     },
     [__postLogin.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.todos.push(action.payload); // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+      console.log('로그인하면1=>',state);
+      console.log('로그인하면2=>',action.payload);
+      state.response.push(action.payload);
     },
     [__postLogin.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
@@ -73,7 +83,8 @@ export const todoSlice = createSlice({
     },
     [__postOverlapChk.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.todos.push(action.payload);
+      console.log('__postOverlapChk2=>',action.payload);
+      state.overChk=action.payload;
     },
     [__postOverlapChk.rejected]: (state, action) => {
       state.isLoading = false;

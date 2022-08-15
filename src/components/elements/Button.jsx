@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const Button = ({ btntype, type, onClick, children, uibutton }) => {
+const Button = ({ btntype, type, onClick, children, uibutton, disabled }) => {
   return (
     <StButton type={type} onClick={onClick} btntype={btntype}>
       {children}

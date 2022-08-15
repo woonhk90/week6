@@ -1,4 +1,4 @@
-import MainTodo from "../components/MainTodo";
+import TodoList from "../components/TodoList";
 import Layout from "../components/layout/Layout";
 import Header from "../components/layout/Header";
 
@@ -7,7 +7,7 @@ const TodoListPage = () => {
     <div>
       <Layout>
         <Header />
-        <MainTodo />
+        <TodoList />
       </Layout>
     </div>
   );
