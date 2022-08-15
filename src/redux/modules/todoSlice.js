@@ -2,8 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { setRefreshTokenToCookie } from "../../components/Login";
 
+<<<<<<< HEAD
 const initialState = {
   overChk:false,
+=======
+
+const initialState = {
+  overChk:[],
+>>>>>>> a083abaa92bca3f8c87897d04915509126abdfa6
   userInfo:[],
   response:[],
   todo:[],
@@ -42,7 +48,11 @@ export const __postOverlapChk = createAsyncThunk("todos/postOverlap", async (pay
     console.log("__postOverlapChk1=>",data)
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
+<<<<<<< HEAD
     return thunkAPI.rejectWithValue(error);
+=======
+    // return thunkAPI.rejectWithValue(error);
+>>>>>>> a083abaa92bca3f8c87897d04915509126abdfa6
   }
 });
 
@@ -71,9 +81,13 @@ export const todoSlice = createSlice({
     },
     [__postLogin.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+<<<<<<< HEAD
       console.log('로그인하면1=>',state);
       console.log('로그인하면2=>',action.payload);
       state.response.push(action.payload);
+=======
+      state.todos.push(action.payload); // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+>>>>>>> a083abaa92bca3f8c87897d04915509126abdfa6
     },
     [__postLogin.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
