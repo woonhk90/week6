@@ -13,6 +13,7 @@ const Input = (props) => {
     placeholder,
     width,
     margin,
+    autoFocus,
   } = props;
   return (
       <StInput
@@ -27,6 +28,7 @@ const Input = (props) => {
         placeholder={placeholder}
         width={width}
         margin={margin}
+        autoFocus={autoFocus}
       />
   );
 };
