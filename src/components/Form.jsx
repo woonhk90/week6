@@ -14,7 +14,6 @@ const Form = () => {
   const [todo, setTodo] = useState({
     title: "",
     content: "",
-    isDone: false,
   });
   const {title,content}=todo;
   const navigate = useNavigate();
