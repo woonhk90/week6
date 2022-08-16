@@ -22,7 +22,7 @@ const Input = (props) => {
         title={title}
         id={id}
         type={type}
-        value={value}
+        defaultValue={value}
         name={name}
         onChange={onChange}
         placeholder={placeholder}

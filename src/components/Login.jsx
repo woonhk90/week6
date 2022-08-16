@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Header from './layout/Header';
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -9,42 +10,54 @@ import Input from './elements/Input';
 
 import bgImg from '../img/bg_img.jpg';
 
+
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
+
+export function setRefreshTokenToCookie(data) {
+  let now = new Date();
+  let after1m = new Date();
+  after1m.setMinutes(now.getMinutes() + 10);
+  cookies.set("authorization", data, { path: "/", expires: after1m });
+  }
+
 const Login = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const [login, setLogin] = React.useState({
-        userId: '',
-        password: '',
-    });
-    const onSubmitEventHandler = () => {
-        dispatch(__postLogin(login));
-    }
-    const onChangeEventHandler = (e) => {
-        const { name, value } = e.target;
-        setLogin({
-            ...login,
-            [name]: value
-        })
-    }
-    return (
-        <>
-            <ImgDiv>
-                <LoginWrap>
-                    <LoginTitle>로그인</LoginTitle>
-                    <LoginForm>
-                        <div>
-                            <Input type={'text'} width={'500px'} id={'userId'} name={'userId'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"아이디를 입력하세요."} autoFocus={'autoFocus'}/>
-                        </div>
-                        <div>
-                            <Input type={'password'} width={'500px'} id={'password'} name={'password'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"비밀번호를 입력하세요."} />
-                        </div>
-                        <Button btntype="login" onClick={() => (onSubmitEventHandler())}>로그인</Button>
-                        <Button btntype="signup" onClick={() => (navigate('/api/signup'))}>회원가입</Button>
-                    </LoginForm>
-                </LoginWrap>
-            </ImgDiv>
-        </>
-    )
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [login, setLogin] = React.useState({
+    userId: '',
+    password: '',
+  });
+  const onSubmitEventHandler = () => {
+    dispatch(__postLogin(login));
+  }
+  const onChangeEventHandler = (e) => {
+    const { name, value } = e.target;
+    setLogin({
+      ...login,
+      [name]: value
+    })
+  }
+  return (
+    <>
+      <ImgDiv>
+        <LoginWrap>
+          <Header />
+          <LoginTitle>로그인</LoginTitle>
+          <LoginForm>
+            <div>
+              <Input type={'text'} width={'500px'} id={'userId'} name={'userId'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"아이디를 입력하세요."} autoFocus={'autoFocus'} />
+            </div>
+            <div>
+              <Input type={'password'} width={'500px'} id={'password'} name={'password'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"비밀번호를 입력하세요."} />
+            </div>
+            <Button btntype="login" onClick={() => (onSubmitEventHandler())}>로그인</Button>
+            <Button btntype="signup" onClick={() => (navigate('/api/signup'))}>회원가입</Button>
+          </LoginForm>
+        </LoginWrap>
+      </ImgDiv>
+    </>
+  )
 }
 
 export default Login;
@@ -58,6 +71,7 @@ const ImgDiv = styled.div`
   display:flex;
   justify-content:center;
   align-items:center;
+  color:#fff;
 `;
 
 const LoginWrap = styled.div`

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { __postUserInfo, __postOverlapChk } from "../redux/modules/todoSlice";
 import styled from 'styled-components';
 import Button from './elements/Button';
 import Input from './elements/Input';
+import Header from './layout/Header';
+import axios from "axios";
 
 import bgImg from '../img/bg_img.jpg';
 
@@ -15,26 +17,32 @@ const Signin = () => {
     userId: '',
     userNic: '',
     password: '',
-    passwordconfirm: '',
-    idOverlap: true,
-    NicOverlap: true,
+    passwordConfirm: '',
+    idOverlap: false,
   })
+
+  const {userId,userNic,password,passwordConfirm,idOverlap}=userInfo
+
   // const  {comments}  = useSelector((state) => state.todos);
-  const stateInfo = useSelector((state) => state);
-  console.log('stateInfo=>',stateInfo);
+  // const stateInfo = useSelector((state) => state.todo);
+
   const [pwChk, setPwChk] = useState('');
 
-  // const comments = useSelector((state) => state); //리턴값 받을꺼임
 
   const onChangeEventHandler = (e) => {
     const { name, value } = e.target;
+    console.log(name,value);
     setUserInfo({
       ...userInfo,
       [name]: value
     })
 
+    if (name === "userId") {
+      setUserInfo({...userInfo,[name]: value, idOverlap:false});
+    }
+
     /* 비밀번호 일치 하는지 안하는지 */
-    if (name === 'passwordconfirm') {
+    if (name === 'passwordConfirm') {
       if (userInfo.password === value) {
         setPwChk("비밀번호가 일치합니다.");
       } else {
@@ -45,7 +53,7 @@ const Signin = () => {
 
   const onSubmitEventHandler = () => {
     if (userInfo.userId === "") {
-      window.alert("아이디를 입력해주세요.");
+      window.alert("아이디를 입력해주세요..");
       return false;
     }
     if (!userInfo.idOverlap) {
@@ -56,31 +64,27 @@ const Signin = () => {
       window.alert("닉네임을 입력해주세요.");
       return false;
     }
-    if (!userInfo.NicOverlap) {
-      window.alert("닉네임 중복검사를 해주세요.");
-      return false;
-    }
     let idReg = /^[A-za-z0-9]{5,15}/g;
     if (!idReg.test(userInfo.userId)) {
-      alert("영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자");
+      alert("아이디를 영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자");
       return false;
     }
-    
+
     let nicReg = /^[A-za-z0-9]{5,15}/g;
     if (!nicReg.test(userInfo.userNic)) {
-      alert("영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자");
+      alert("닉네임을 영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자");
       return false;
     }
 
     let pwReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     if (!pwReg.test(userInfo.password)) {
-      alert("최소 8 자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자");
+      alert("비밀번호를 최소 8 자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자");
       return false;
     }
 
 
 
-    if(userInfo.password==='' || userInfo.passwordconfirm===''){
+    if (userInfo.password === '' || userInfo.passwordConfirm === '') {
       window.alert("비밀번호를 확인해주세요.");
     }
 
@@ -90,37 +94,39 @@ const Signin = () => {
     // navigate('/todolist');
   }
 
-  //  useRef
-  // onClickOverlap('idChk')
-  const onClickOverlap = (flag) => {
-    if (flag === 'idChk') {
-      dispatch(__postOverlapChk({ flag, val: userInfo.userId }));
-      // useSelector리턴값 받을꺼임
-    } else if (flag === "NicChk") {
-      dispatch(__postOverlapChk({ flag, val: userInfo.userNic }));
+  const onClickOverlap = async (flag) => {
+    try {
+      const data = await axios.post(`http://52.78.17.178/api/member/checkup`, { flag, val: userInfo.userId });
+      console.log('DATA:', data);
+      data ? window.alert("사용가능한 아이디 입니다.") : window.alert("사용불가능한 아이디 입니다.")
+      userInfo.idOverlap=data;
+    } catch {
+      // 오류 발생시 실행
     }
+
   }
   return (
     <>
       <ImgDiv>
         <SigninWrap>
+          <Header />
           <SigninTitle>회원가입</SigninTitle>
           <SigninForm>
             <div>
               <label htmlFor="userId">아이디: </label>
-              <Input type={"text"} width={'600px'} name={"userId"} id={"userId"} onChange={onChangeEventHandler}placeholder={'영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자'} /><span onClick={() => { onClickOverlap('idChk') }}>중복확인</span>
+              <Input type={"text"} width={'600px'} name={"userId"} id={"userId"} value={userId} onChange={onChangeEventHandler} placeholder={'영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자'} /><span onClick={() => { onClickOverlap('idChk') }}>중복확인</span>
             </div>
             <div>
               <label htmlFor="userNic">닉네임: </label>
-              <Input type={"text"} width={'600px'} name={"userNic"} id={"userNic"} onChange={onChangeEventHandler}placeholder={'영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자'}/><span onClick={() => { onClickOverlap('NicChk') }}>중복확인</span>
+              <Input type={"text"} width={'600px'} name={"userNic"} id={"userNic"} onChange={onChangeEventHandler} placeholder={'영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자'} />
             </div>
             <div>
               <label htmlFor="password">비밀번호 입력: </label>
-              <Input type={"password"} width={'600px'} name={"password"} id={"password"} onChange={onChangeEventHandler}placeholder={'최소 8 자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자'} />
+              <Input type={"password"} width={'600px'} name={"password"} id={"password"} onChange={onChangeEventHandler} placeholder={'최소 8 자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자'} />
             </div>
             <div>
-              <label htmlFor="passwordconfirm">비밀번호 확인: </label>
-              <Input type={"password"} width={'600px'} name={"passwordconfirm"} id={"passwordconfirm"} onChange={onChangeEventHandler}/>
+              <label htmlFor="passwordConfirm">비밀번호 확인: </label>
+              <Input type={"password"} width={'600px'} name={"passwordConfirm"} id={"passwordConfirm"} onChange={onChangeEventHandler} />
               <PwDoubleChk>{pwChk}</PwDoubleChk>
             </div>
             <ButtonBox>
