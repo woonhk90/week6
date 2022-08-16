@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Button from './elements/Button';
 import Input from './elements/Input';
 import Header from './layout/Header';
+import axios from "axios";
 
 import bgImg from '../img/bg_img.jpg';
 
@@ -19,26 +20,27 @@ const Signin = () => {
     passwordConfirm: '',
     idOverlap: false,
   })
-  // const  {comments}  = useSelector((state) => state.todos);
-  const stateInfo = useSelector((state) => state.todo);
-  console.log('true로 떨어질까?=>', stateInfo.overChk);
-  const [overlapChk, setOverlapChk] = useState(stateInfo.overChk);
 
+  const {userId,userNic,password,passwordConfirm,idOverlap}=userInfo
+
+  // const  {comments}  = useSelector((state) => state.todos);
+  // const stateInfo = useSelector((state) => state.todo);
 
   const [pwChk, setPwChk] = useState('');
 
-  // const comments = useSelector((state) => state); //리턴값 받을꺼임
 
   const onChangeEventHandler = (e) => {
     const { name, value } = e.target;
+    console.log(name,value);
     setUserInfo({
       ...userInfo,
       [name]: value
     })
 
     if (name === "userId") {
-      setOverlapChk(false);
+      setUserInfo({...userInfo,[name]: value, idOverlap:false});
     }
+
     /* 비밀번호 일치 하는지 안하는지 */
     if (name === 'passwordConfirm') {
       if (userInfo.password === value) {
@@ -51,11 +53,10 @@ const Signin = () => {
 
   const onSubmitEventHandler = () => {
     if (userInfo.userId === "") {
-      window.alert("아이디를 입력해주세요.");
+      window.alert("아이디를 입력해주세요..");
       return false;
     }
-    console.log("아이디유효성검사", overlapChk);
-    if (!overlapChk) {
+    if (!userInfo.idOverlap) {
       window.alert("아이디 중복검사를 해주세요.");
       return false;
     }
@@ -93,24 +94,27 @@ const Signin = () => {
     // navigate('/todolist');
   }
 
-  const onClickOverlap = (flag) => {
-    if (flag === 'idChk') {
-      dispatch(__postOverlapChk({ flag, val: userInfo.userId }));
-      setOverlapChk(stateInfo.overChk);
-      console.log("넣기전:", stateInfo.overChk);
-
+  const onClickOverlap = async (flag) => {
+    try {
+      const data = await axios.post(`http://52.78.17.178/api/member/checkup`, { flag, val: userInfo.userId });
+      console.log('DATA:', data);
+      data ? window.alert("사용가능한 아이디 입니다.") : window.alert("사용불가능한 아이디 입니다.")
+      userInfo.idOverlap=data;
+    } catch {
+      // 오류 발생시 실행
     }
+
   }
   return (
     <>
-      <ImgDiv>a
+      <ImgDiv>
         <SigninWrap>
           <Header />
           <SigninTitle>회원가입</SigninTitle>
           <SigninForm>
             <div>
               <label htmlFor="userId">아이디: </label>
-              <Input type={"text"} width={'600px'} name={"userId"} id={"userId"} onChange={onChangeEventHandler} placeholder={'영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자'} /><span onClick={() => { onClickOverlap('idChk') }}>중복확인</span>
+              <Input type={"text"} width={'600px'} name={"userId"} id={"userId"} value={userId} onChange={onChangeEventHandler} placeholder={'영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자'} /><span onClick={() => { onClickOverlap('idChk') }}>중복확인</span>
             </div>
             <div>
               <label htmlFor="userNic">닉네임: </label>
