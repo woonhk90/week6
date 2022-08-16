@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import "@fontsource/roboto/300.css";
 
-const CommonTextArea = ({ labeltext, text, id, onChange }) => {
+const CommonTextArea = ({ labeltext, text, id, onChange, height }) => {
   return (
     <StBox>
       <Stlabel htmlfor={id}>{labeltext}</Stlabel>
@@ -14,7 +14,7 @@ export default CommonTextArea;
 
 const StTextArea = styled.textarea`
   width: 100%;
-  height: 250px;
+  height: 150px;
   margin-top: 15px;
   padding: 20px;
   box-sizing: border-box;
