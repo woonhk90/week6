@@ -5,7 +5,6 @@ import { __postUserInfo, __postOverlapChk } from "../redux/modules/todoSlice";
 import styled from 'styled-components';
 import Button from './elements/Button';
 import Input from './elements/Input';
-import Header from './layout/Header';
 import axios from "axios";
 
 import bgImg from '../img/bg_img.jpg';
@@ -90,7 +89,7 @@ const Signin = () => {
 
 
     dispatch(__postUserInfo(userInfo));
-    console.log('userInfo=>', userInfo);
+    // console.log('userInfo=>', userInfo);
     // navigate('/todolist');
   }
 
@@ -109,7 +108,6 @@ const Signin = () => {
     <>
       <ImgDiv>
         <SigninWrap>
-          <Header />
           <SigninTitle>회원가입</SigninTitle>
           <SigninForm>
             <div>
