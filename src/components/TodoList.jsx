@@ -7,11 +7,10 @@ import { __getTodos } from "../redux/modules/etcSlice";
 const TodoList = () => {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.etc.todos);
-
   useEffect(() => {
     dispatch(__getTodos());
   }, [dispatch]);
-  console.log(todos);
+
   return (
     <div>
       <StTodoList>
