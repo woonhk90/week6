@@ -5,7 +5,6 @@ import { __postUserInfo, __postOverlapChk } from "../redux/modules/todoSlice";
 import styled from 'styled-components';
 import Button from './elements/Button';
 import Input from './elements/Input';
-import Header from './layout/Header';
 import axios from "axios";
 
 import bgImg from '../img/bg_img.jpg';
@@ -51,7 +50,7 @@ const Signin = () => {
     }
   }
 
-  const onSubmitEventHandler = () => {
+  const onSubmitEventHandler = async() => {
     if (userInfo.userId === "") {
       window.alert("아이디를 입력해주세요..");
       return false;
@@ -89,9 +88,25 @@ const Signin = () => {
     }
 
 
+
+
+
+
+
+
+
+      try {
+        const data = await axios.post(`http://52.78.17.178/api/member/signup`, userInfo);
+        console.log("로그인데이터:", data);
+        // return thunkAPI.fulfillWithValue(data.data);
+      } catch (error) {
+        // return thunkAPI.rejectWithValue(error);
+      }
+
+
+
+
     dispatch(__postUserInfo(userInfo));
-    console.log('userInfo=>', userInfo);
-    // navigate('/todolist');
   }
 
   const onClickOverlap = async (flag) => {
@@ -109,7 +124,6 @@ const Signin = () => {
     <>
       <ImgDiv>
         <SigninWrap>
-          <Header />
           <SigninTitle>회원가입</SigninTitle>
           <SigninForm>
             <div>
@@ -131,7 +145,7 @@ const Signin = () => {
             </div>
             <ButtonBox>
               <Button btntype="signSubmit" onClick={() => { onSubmitEventHandler() }}>회원가입</Button>
-              <Button btntype="back" onClick={() => { navigate('/api/login'); }}>뒤로가기</Button>
+              <Button btntype="back" onClick={() => { navigate('/login'); }}>뒤로가기</Button>
             </ButtonBox>
           </SigninForm>
         </SigninWrap>

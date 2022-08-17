@@ -77,4 +77,18 @@ const StButton = styled.button`
       `
     );
   }}
+
+  ${(props) => {
+    return (
+      props.btntype === 'logout' &&
+      css`
+        border: 1px solid rgb(254, 83, 31);
+        background-color: transparent;
+        /* width: 100px; */
+        /* height: 50px; */
+        /* line-height:50px; */
+        padding:15px 25px;
+      `
+    );
+  }}
 `;

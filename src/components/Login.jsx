@@ -1,35 +1,56 @@
 import React from "react";
 import styled from "styled-components";
-import Header from './layout/Header';
 
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { __postLogin } from "../redux/modules/todoSlice";
 import Button from './elements/Button';
 import Input from './elements/Input';
 
 import bgImg from '../img/bg_img.jpg';
 
-
+import axios from "axios";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 export function setRefreshTokenToCookie(data) {
   let now = new Date();
-  let after1m = new Date();
-  after1m.setMinutes(now.getMinutes() + 10);
-  cookies.set("authorization", data, { path: "/", expires: after1m });
-  }
+  // let after1m = new Date();
+  // after1m.setMinutes(now.getMinutes() + 10);
+  now.setMinutes(now.getMinutes()+30);
+  cookies.set("Authorization", data, { path: "/", expires: now });
+}
+
+
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [login, setLogin] = React.useState({
-    userId: '',
+    username: '',
     password: '',
   });
-  const onSubmitEventHandler = () => {
-    dispatch(__postLogin(login));
+
+  const onSubmitEventHandler = async () => {
+    // const refresh_token = cookies.get("Authorization");
+    try {
+      // const data = await axios.post(`http://15.165.160.40/api/login`, login, {
+      const data = await axios.post(`${process.env.REACT_APP_TEST_IP_ADDRESS}/login`, login, {
+        headers: {
+        },
+      });
+      console.log("로그인성공데이터1:", data);
+      console.log("로그인성공데이터2:", data.status);
+      /* 트루이면 */
+      data.status===200?navigate('/main'):window.alert("로그인 실패하였습니다.");
+      // data?navigate('/main'):window.alert("로그인 실패하였습니다.");
+      const token = data.headers.Authorization;
+      setRefreshTokenToCookie(token);
+    } catch {
+      // 오류 발생시 실행
+    }
+
+
   }
   const onChangeEventHandler = (e) => {
     const { name, value } = e.target;
@@ -38,21 +59,21 @@ const Login = () => {
       [name]: value
     })
   }
+
   return (
     <>
       <ImgDiv>
         <LoginWrap>
-          <Header />
           <LoginTitle>로그인</LoginTitle>
           <LoginForm>
             <div>
-              <Input type={'text'} width={'500px'} id={'userId'} name={'userId'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"아이디를 입력하세요."} autoFocus={'autoFocus'} />
+              <Input type={'text'} width={'500px'} id={'username'} name={'username'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"아이디를 입력하세요."} autoFocus={'autoFocus'} />
             </div>
             <div>
               <Input type={'password'} width={'500px'} id={'password'} name={'password'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"비밀번호를 입력하세요."} />
             </div>
             <Button btntype="login" onClick={() => (onSubmitEventHandler())}>로그인</Button>
-            <Button btntype="signup" onClick={() => (navigate('/api/signup'))}>회원가입</Button>
+            <Button btntype="signup" onClick={() => (navigate('/signup'))}>회원가입</Button>
           </LoginForm>
         </LoginWrap>
       </ImgDiv>

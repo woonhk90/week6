@@ -6,17 +6,22 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { __postTodos } from "../redux/modules/etcSlice";
 import { useDispatch } from "react-redux";
+import Cookies from "universal-cookie";
+import axios from "axios";
+import {setRefreshTokenToCookie} from '../components/Login'
 
 const Form = () => {
   const [todo, setTodo] = useState({
     title: "",
     content: "",
   });
-
+  const {title,content}=todo;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onSubmitHandler = () => {
+  const cookies = new Cookies();
+
+  const onSubmitHandler = async() => {
     if (todo.title === "" || todo.content === "") {
       alert("입력하지 않은 항목이 있는지 확인 후 다시 시도해주세요.");
     } else if (todo.title.length > 50) {
@@ -30,6 +35,37 @@ const Form = () => {
       todo.title !== ""
     ) {
       dispatch(__postTodos(todo));
+
+
+
+
+
+
+
+        const refresh_token = cookies.get("authorization");
+        try {
+          console.log("입력값",title,content);
+          const data = await axios.post(`http://15.165.160.40/api/articles`,{title,content},{
+            headers: {
+              Authorization: refresh_token
+            },
+          });
+          console.log("로그인성공데이터1:", data);
+          /* 트루이면 */
+          navigate('/list');
+          // const token = data.headers.authorization;
+          // setRefreshTokenToCookie(token);
+        } catch {
+          // 오류 발생시 실행
+      }
+
+
+
+
+
+
+
+
       navigate("/list");
     }
   };
