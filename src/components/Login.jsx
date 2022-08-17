@@ -15,9 +15,10 @@ const cookies = new Cookies();
 
 export function setRefreshTokenToCookie(data) {
   let now = new Date();
-  let after1m = new Date();
-  after1m.setMinutes(now.getMinutes() + 10);
-  cookies.set("authorization", data, { path: "/", expires: after1m });
+  // let after1m = new Date();
+  // after1m.setMinutes(now.getMinutes() + 10);
+  now.setMinutes(now.getMinutes()+30);
+  cookies.set("Authorization", data, { path: "/", expires: now });
 }
 
 
@@ -33,15 +34,17 @@ const Login = () => {
   const onSubmitEventHandler = async () => {
     // const refresh_token = cookies.get("Authorization");
     try {
-      const data = await axios.post(`http://15.165.160.40/api/login`, login, {
+      // const data = await axios.post(`http://15.165.160.40/api/login`, login, {
+      const data = await axios.post(`${process.env.REACT_APP_TEST_IP_ADDRESS}/login`, login, {
         headers: {
-          // Authorization: refresh_token
         },
       });
       console.log("로그인성공데이터1:", data);
+      console.log("로그인성공데이터2:", data.status);
       /* 트루이면 */
-      navigate('/main');
-      const token = data.headers.authorization;
+      data.status===200?navigate('/main'):window.alert("로그인 실패하였습니다.");
+      // data?navigate('/main'):window.alert("로그인 실패하였습니다.");
+      const token = data.headers.Authorization;
       setRefreshTokenToCookie(token);
     } catch {
       // 오류 발생시 실행
@@ -70,7 +73,7 @@ const Login = () => {
               <Input type={'password'} width={'500px'} id={'password'} name={'password'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"비밀번호를 입력하세요."} />
             </div>
             <Button btntype="login" onClick={() => (onSubmitEventHandler())}>로그인</Button>
-            <Button btntype="signup" onClick={() => (navigate('/api/signup'))}>회원가입</Button>
+            <Button btntype="signup" onClick={() => (navigate('/signup'))}>회원가입</Button>
           </LoginForm>
         </LoginWrap>
       </ImgDiv>

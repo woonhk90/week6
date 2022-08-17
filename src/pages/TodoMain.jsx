@@ -15,7 +15,7 @@ const TodoMain = () => {
       <CommonBlueButton
         text='로그인'
         margin='5%'
-        onClick={() => navigate(`/api/login`)}
+        onClick={() => navigate(`/login`)}
       />
       <CommonWhiteButton
         text='마이페이지'
