@@ -34,7 +34,7 @@ const Form = () => {
       todo.user !== "" &&
       todo.title !== ""
     ) {
-      dispatch(__postTodos(todo));
+      // dispatch(__postTodos(todo));
 
 
 
@@ -42,10 +42,10 @@ const Form = () => {
 
 
 
-        const refresh_token = cookies.get("authorization");
+        const refresh_token = cookies.get("Authorization");
         try {
-          console.log("입력값",title,content);
-          const data = await axios.post(`http://15.165.160.40/api/articles`,{title,content},{
+          console.log("입력값",title,content,refresh_token);
+          const data = await axios.post(`http://13.125.20.230/api/article/auth`,{title,content},{
             headers: {
               Authorization: refresh_token
             },
@@ -53,8 +53,6 @@ const Form = () => {
           console.log("로그인성공데이터1:", data);
           /* 트루이면 */
           navigate('/list');
-          // const token = data.headers.authorization;
-          // setRefreshTokenToCookie(token);
         } catch {
           // 오류 발생시 실행
       }

@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Button = ({
   text,
@@ -12,6 +14,8 @@ const Button = ({
   return (
     <StButton type={type} onClick={onClick} btntype={btntype}>
       {children}
+      {uibutton === "delete" ? <DeleteIcon /> : null}
+      {uibutton === "edit" ? <EditIcon /> : null}
     </StButton>
   );
 };

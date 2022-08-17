@@ -29,13 +29,13 @@ const CommentView = ({ comment }) => {
 
   const [updateComment, setUpdateComment] = useState({
     id: "",
-    userContent: comment.userContent,
+    content: comment.content,
   });
 
   const changeEvent = (e) => {
     setUpdateComment({
       id: comment.id,
-      userContent: e.target.value,
+      content: e.target.value,
     });
   };
 
@@ -51,15 +51,15 @@ const CommentView = ({ comment }) => {
             {!editComment ? (
               <div>
                 <CommentBottom className='comment_view'>
-                  {comment.userContent}
+                  {comment.content}
                 </CommentBottom>
               </div>
             ) : (
               <Input
                 onChange={changeEvent}
-                name='userContent'
+                name='content'
                 type='text'
-                value={updateComment.userContent}
+                value={updateComment.content}
               />
             )}
           </CommentContent>

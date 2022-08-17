@@ -8,11 +8,12 @@ const Header = () => {
   const navigate = useNavigate();
   const cookies = new Cookies();
   const refresh_token = cookies.get("Authorization");
-  console.log('refresh_token=>',refresh_token); 
+  console.log('refresh_token=>', refresh_token);
+  console.log('refresh_token=>', cookies);
   return (
     <StContainer>
       <StHeaderTitle to='/main'>Header</StHeaderTitle>
-      {refresh_token!==undefined?<Button btntype='logout' onClick={() => { getLogout(); navigate("/"); }}>로그아웃</Button>:null}
+      {refresh_token !== undefined ? <Button btntype='logout' onClick={() => { getLogout(); navigate("/"); }}>로그아웃</Button> : null}
     </StContainer>
   );
 };

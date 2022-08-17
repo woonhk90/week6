@@ -27,25 +27,26 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [login, setLogin] = React.useState({
-    username: '',
+    userId: '',
     password: '',
   });
 
   const onSubmitEventHandler = async () => {
     // const refresh_token = cookies.get("Authorization");
     try {
-      // const data = await axios.post(`http://15.165.160.40/api/login`, login, {
-      const data = await axios.post(`${process.env.REACT_APP_TEST_IP_ADDRESS}/login`, login, {
+      const data = await axios.post(`${process.env.REACT_APP_IP_ADDRESS}/member/login`, login, {
+      // const data = await axios.post(`${process.env.REACT_APP_TEST_IP_ADDRESS}/login`, login, {
         headers: {
+
         },
       });
       console.log("로그인성공데이터1:", data);
       console.log("로그인성공데이터2:", data.status);
       /* 트루이면 */
-      data.status===200?navigate('/main'):window.alert("로그인 실패하였습니다.");
       // data?navigate('/main'):window.alert("로그인 실패하였습니다.");
-      const token = data.headers.Authorization;
+      const token = data.headers.authorization;
       setRefreshTokenToCookie(token);
+      data.status===200?navigate('/main'):window.alert("로그인 실패하였습니다.");
     } catch {
       // 오류 발생시 실행
     }
@@ -67,7 +68,7 @@ const Login = () => {
           <LoginTitle>로그인</LoginTitle>
           <LoginForm>
             <div>
-              <Input type={'text'} width={'500px'} id={'username'} name={'username'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"아이디를 입력하세요."} autoFocus={'autoFocus'} />
+              <Input type={'text'} width={'500px'} id={'userId'} name={'userId'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"아이디를 입력하세요."} autoFocus={'autoFocus'} />
             </div>
             <div>
               <Input type={'password'} width={'500px'} id={'password'} name={'password'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"비밀번호를 입력하세요."} />

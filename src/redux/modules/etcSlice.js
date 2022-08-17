@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
+
 const API_TODOS = process.env.REACT_APP_TODOS_API_URL;
 const API_COMMENT = process.env.REACT_APP_COMMENTS_API_URL;
 
@@ -8,12 +11,18 @@ const initialState = {
   isLoading: false,
   error: null,
 };
+console.log('ETCSLICE_COOKIES=>',cookies.get("Authorization"));
 
 export const __getTodos = createAsyncThunk(
   "todos/getTodos",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/todos");
+      const refresh_token = cookies.get("Authorization");
+      const data = await axios.get("http://13.125.20.230/api/article/all",{
+        headers: {
+          Authorization: refresh_token
+        },
+      });
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -25,8 +34,13 @@ export const __deleteTodos = createAsyncThunk(
   "todos/deleteTodos",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.delete(`http://localhost:3001/todos/${payload}`);
-      //const data = await axios.delete(`${API_TODOS}/${payload}`);
+      console.log("__deleteTodos=>",payload);
+      const refresh_token = cookies.get("Authorization");
+      const data = await axios.delete(`http://13.125.20.230/api/article/auth/${payload}`,{
+        headers: {
+          Authorization: refresh_token
+        },
+      });
       thunkAPI.dispatch(__getTodos());
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -39,7 +53,12 @@ export const __postTodos = createAsyncThunk(
   "todos/postTodos",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("http://localhost:3001/todos", payload);
+      const refresh_token = cookies.get("Authorization");
+      const data = await axios.post("http://13.125.20.230/api/article/auth", payload,{
+        headers: {
+          Authorization: refresh_token
+        },
+      });
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -47,11 +66,18 @@ export const __postTodos = createAsyncThunk(
   }
 );
 
+
 export const __putTodos = createAsyncThunk(
   "todos/putTodos",
   async (payload, thunkAPI) => {
     try {
-      await axios.patch(`http://localhost:3001/todos/${payload.id}`, payload);
+      console.log('__putTodos=>',payload);
+      const refresh_token = cookies.get("Authorization");
+      await axios.patch(`http://13.125.20.230/api/article/auth/${payload.id}`, payload,{
+        headers: {
+          Authorization: refresh_token
+        },
+      });
       //await axios.patch(`${API_TODOS}/${payload.id}`, payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
