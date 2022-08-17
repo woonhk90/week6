@@ -1,6 +1,14 @@
 import styled, { css } from "styled-components";
 
-const Button = ({ btntype, type, onClick, children, uibutton, disabled }) => {
+const Button = ({
+  text,
+  btntype,
+  type,
+  onClick,
+  children,
+  uibutton,
+  disabled,
+}) => {
   return (
     <StButton type={type} onClick={onClick} btntype={btntype}>
       {children}
@@ -15,11 +23,11 @@ const StButton = styled.button`
   cursor: pointer;
   ${(props) => {
     return (
-      props.btntype === 'login' &&
+      props.btntype === "login" &&
       css`
         border: 1px solid rgb(221, 221, 221);
         background-color: white;
-        :hover{
+        :hover {
           border: 1px solid rgb(254, 83, 31);
         }
         width: 100%;
@@ -29,11 +37,11 @@ const StButton = styled.button`
   }}
   ${(props) => {
     return (
-      props.btntype === 'signup' &&
+      props.btntype === "signup" &&
       css`
         border: 1px solid rgb(221, 221, 221);
         background-color: white;
-        :hover{
+        :hover {
           border: 1px solid rgb(254, 83, 31);
         }
         width: 100%;
@@ -43,11 +51,11 @@ const StButton = styled.button`
   }}
   ${(props) => {
     return (
-      props.btntype === 'signSubmit' &&
+      props.btntype === "signSubmit" &&
       css`
         border: 1px solid rgb(221, 221, 221);
         background-color: white;
-        :hover{
+        :hover {
           border: 1px solid rgb(254, 83, 31);
         }
         width: 100%;
@@ -57,11 +65,11 @@ const StButton = styled.button`
   }}
   ${(props) => {
     return (
-      props.btntype === 'back' &&
+      props.btntype === "back" &&
       css`
         border: 1px solid rgb(221, 221, 221);
         background-color: white;
-        :hover{
+        :hover {
           border: 1px solid rgb(254, 83, 31);
         }
         width: 100%;
@@ -69,6 +77,7 @@ const StButton = styled.button`
       `
     );
   }}
+
   ${(props) => {
     return (
       props.btntype === 'logout' &&

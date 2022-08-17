@@ -1,113 +1,132 @@
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import CommonWhiteButton from "../components/elements/CommonWhiteButton";
-import CommonBlueButton from "../components/elements/CommonBlueButton";
-import { useState, useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
-import {
-  __postComments,
-  __getComments,
-  __deleteComments,
-} from "../redux/modules/commentsSlice";
+import { __postComments, __getComments } from "../redux/modules/commentsSlice";
+
+import { useParams } from "react-router-dom";
+import CommentView from "./CommentView";
+
+import Button from "./elements/Button";
+import Input from "./elements/Input";
 
 const Comment = () => {
   const dispatch = useDispatch();
+
+  // const  {comments}  = useSelector((state) => state.todos);
   const comments = useSelector((state) => state.comments.comments);
-
-  const [comment, setComment] = useState({
-    comment: "",
-  });
-
-  const onClickAddComment = (comment) => {
-    dispatch(__postComments(comment));
-  };
-  const onClickDeleteComment = (commentId) => {
-    dispatch(__deleteComments(commentId));
-  };
 
   useEffect(() => {
     dispatch(__getComments());
   }, [dispatch]);
 
-  return (
-    <div>
-      <StCommentbox>
-        <StUser>작성자명</StUser>
-        <StCommentInput
-          type='text'
-          placeholder='댓글을 입력해주세요.'
-          onChange={(e) => {
-            const { value } = e.target;
-            setComment({
-              ...comment,
-              comment: value,
-            });
-          }}
-        />
-        <CommonWhiteButton
-          text='댓글추가'
-          onClick={() => onClickAddComment(comment)}
-        />
-      </StCommentbox>
+  const [comment, setComment] = useState({
+    userContent: "",
+  });
+  const param = useParams();
 
-      <div>
-        {comments?.map((comment) => {
-          return (
-            <StAddCommentbox key={comment.id}>
-              <Sttitlebtn>
-                <StUser>작성자명</StUser>
-                <StbtnSet>
-                  <CommonBlueButton text='수정하기' />
-                  <CommonWhiteButton
-                    text='삭제하기'
-                    onClick={() => {
-                      onClickDeleteComment(comment.id);
-                    }}
-                  />
-                </StbtnSet>
-              </Sttitlebtn>
-              <Stcomment>{comment.comment}</Stcomment>
-            </StAddCommentbox>
-          );
-        })}
-      </div>
-    </div>
+  const onChangeHandler = (e) => {
+    const { value, name } = e.target;
+    setComment({
+      ...comment,
+      userId: param.id,
+      [name]: value,
+    });
+  };
+  const postComment = (e) => {
+    e.preventDefault();
+
+    if (userContent === "") {
+      window.alert("내용을 입력해주세요");
+      return false;
+    }
+    dispatch(__postComments(comment));
+
+    /* 초기화 */
+    setComment({
+      userName: "",
+      userContent: "",
+    });
+  };
+  const { userName, userContent } = comment;
+  const [commentShow, setCommentShow] = useState(true);
+  return (
+    <>
+      <CommentWrap commentShow={commentShow}>
+        <div
+          onClick={() => {
+            setCommentShow(!commentShow);
+          }}
+        >
+          <span style={{ fontSize: "25px" }}>
+            {commentShow ? "댓글 올리기" : "댓글 내리기"}
+          </span>
+        </div>
+        <ShowHideBox>
+          <CommentForm onSubmit={postComment}>
+            <CommentUser>작성자명:OO</CommentUser>
+            <Input
+              type='text'
+              name='userContent'
+              onChange={onChangeHandler}
+              maxLength='100'
+              placeholder='댓글을 추가하세요.(100자 이내)'
+              width='500px'
+              value={userContent}
+              margin='0 30px 0 0'
+            />
+            <Button type='submit' btntype='basic-small'>
+              추가하기
+            </Button>
+            {/* <Button bgcolor='transparent'>추가하기</Button> */}
+          </CommentForm>
+          <CommentLists>
+            {comments.map((v) =>
+              Number(v.userId) === Number(param.id) ? (
+                <div key={v.id}>
+                  <CommentView comment={v} />
+                </div>
+              ) : null
+            )}
+          </CommentLists>
+        </ShowHideBox>
+      </CommentWrap>
+    </>
   );
 };
 
 export default Comment;
 
-const StUser = styled.div``;
+const CommentWrap = styled.div`
+  background-color: white;
+  border-top: 1px solid #eee;
+  transform: translate(-50%, 90%);
+  transform: ${({ commentShow }) =>
+    commentShow ? "" : `translate(-50%, -10%)`};
 
-const StCommentbox = styled.div`
-  border: 1px solid black;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  height: 400px;
+  position: fixed;
+  max-width: 1152px;
   width: 100%;
-  height: 50px;
-  margin: 30px auto;
+  bottom: 0%;
+  left: 50%;
 `;
-
-const StAddCommentbox = styled.div`
-  border: 1px solid black;
-  margin-top: 15px;
+const ShowHideBox = styled.div`
+  height: 100%;
+  width: 100%;
 `;
-
-const StCommentInput = styled.input`
-  width: 350px;
-  height: 20px;
-  margin-left: 20px;
-`;
-
-const Stcomment = styled.div``;
-
-const Sttitlebtn = styled.div`
+const CommentForm = styled.form`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 20%;
+  width: 100%;
 `;
 
-const StbtnSet = styled.div`
-  display: flex;
-  flex-direction: row;
+const CommentLists = styled.div`
+  overflow: auto;
+  height: 80%;
+  width: 100%;
 `;
+
+const CommentUser = styled.div``;
