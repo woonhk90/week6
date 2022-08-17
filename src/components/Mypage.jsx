@@ -17,7 +17,7 @@ const Mypage = () => {
   const refresh_token = cookies.get("Authorization");
   const __getUserInfo = async() => {
     try {
-      const data = await axios.get(`http://15.165.160.40/api/login`, {
+      const data = await axios.get(`http://13.125.252.187/api/login`, {
         headers: {
           Authorization: refresh_token
         },

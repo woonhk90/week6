@@ -15,16 +15,16 @@ const Comment = () => {
 
   // const  {comments}  = useSelector((state) => state.todos);
   const comments = useSelector((state) => state.comments.comments);
-
+  console.log("COMMENTS=>",comments);
   useEffect(() => {
     dispatch(__getComments());
   }, [dispatch]);
 
   const [comment, setComment] = useState({
-    userContent: "",
+    content: "",
   });
   const param = useParams();
-
+console.log('param=>',param);
   const onChangeHandler = (e) => {
     const { value, name } = e.target;
     setComment({
@@ -36,7 +36,7 @@ const Comment = () => {
   const postComment = (e) => {
     e.preventDefault();
 
-    if (userContent === "") {
+    if (content === "") {
       window.alert("내용을 입력해주세요");
       return false;
     }
@@ -45,10 +45,10 @@ const Comment = () => {
     /* 초기화 */
     setComment({
       userName: "",
-      userContent: "",
+      content: "",
     });
   };
-  const { userName, userContent } = comment;
+  const { userName, content } = comment;
   const [commentShow, setCommentShow] = useState(true);
   return (
     <>
@@ -67,12 +67,12 @@ const Comment = () => {
             <CommentUser>작성자명:OO</CommentUser>
             <Input
               type='text'
-              name='userContent'
+              name='content'
               onChange={onChangeHandler}
               maxLength='100'
               placeholder='댓글을 추가하세요.(100자 이내)'
               width='500px'
-              value={userContent}
+              value={content}
               margin='0 30px 0 0'
             />
             <Button type='submit' btntype='basic-small'>
@@ -82,7 +82,7 @@ const Comment = () => {
           </CommentForm>
           <CommentLists>
             {comments.map((v) =>
-              Number(v.userId) === Number(param.id) ? (
+              Number(v.articleid) === Number(param.id) ? (
                 <div key={v.id}>
                   <CommentView comment={v} />
                 </div>

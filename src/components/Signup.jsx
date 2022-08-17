@@ -41,8 +41,8 @@ const Signin = () => {
     }
 
     /* 비밀번호 일치 하는지 안하는지 */
-    if (name === 'passwordConfirm') {
-      if (userInfo.password === value) {
+    if (name === 'passwordConfirm'||name === 'password') {
+      if (userInfo.password === value||userInfo.passwordConfirm === value) {
         setPwChk("비밀번호가 일치합니다.");
       } else {
         setPwChk("비밀번호가 일치하지 않습니다");
@@ -96,8 +96,11 @@ const Signin = () => {
 
 
       try {
-        const data = await axios.post(`http://52.78.17.178/api/member/signup`, userInfo);
-        console.log("로그인데이터:", data);
+        const data = await axios.post(`http://13.125.20.230/api/member/signup`, userInfo);
+        console.log("회원가입리턴데이터=>", data);
+        if(data.data){
+          navigate("/");
+        }
         // return thunkAPI.fulfillWithValue(data.data);
       } catch (error) {
         // return thunkAPI.rejectWithValue(error);
@@ -106,12 +109,12 @@ const Signin = () => {
 
 
 
-    dispatch(__postUserInfo(userInfo));
+    // dispatch(__postUserInfo(userInfo));
   }
 
   const onClickOverlap = async (flag) => {
     try {
-      const data = await axios.post(`http://52.78.17.178/api/member/checkup`, { flag, val: userInfo.userId });
+      const data = await axios.post(`http://13.125.20.230/api/member/checkup`, { flag, val: userInfo.userId });
       console.log('DATA:', data);
       data ? window.alert("사용가능한 아이디 입니다.") : window.alert("사용불가능한 아이디 입니다.")
       userInfo.idOverlap=data;
