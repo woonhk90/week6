@@ -31,19 +31,19 @@ const Login = () => {
     password: '',
   });
 
-  const {userId,password}=login
+  const { userId, password } = login
 
   const onSubmitEventHandler = async () => {
-    if(userId.trim()===''){
+    if (userId.trim() === '') {
       window.alert("아이디를 입력해주세요.");
       return false;
     }
-    if(password.trim()===''){
+    if (password.trim() === '') {
       window.alert("비밀번호를 입력해주세요.");
       return false;
     }
     try {
-      console.log('로그인테스트=>',login);
+      console.log('로그인테스트=>', login);
       const data = await axios.post(`${process.env.REACT_APP_IP_ADDRESS}/member/login`, login, {
         // const data = await axios.post(`${process.env.REACT_APP_TEST_IP_ADDRESS}/login`, login, {
         headers: {
