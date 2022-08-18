@@ -6,7 +6,7 @@ import commentsSlice from "../modules/commentsSlice";
 export const store = configureStore({
   //   devTools : process.env.NODE_ENV !== "production",
   reducer: {
-    todo,
+    //todo,
     etc: etcSlice,
     comments: commentsSlice,
   },
