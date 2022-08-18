@@ -43,6 +43,7 @@ const Login = () => {
       return false;
     }
     try {
+      console.log('로그인테이터=>',login);
       const data = await axios.post(`http://15.165.160.40/api/login`, login, {
         // const data = await axios.post(`${process.env.REACT_APP_TEST_IP_ADDRESS}/login`, login, {
         headers: {
