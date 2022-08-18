@@ -13,15 +13,19 @@ export const __postComments = createAsyncThunk(
   "comments/postComment",
   async (payload, thunkAPI) => {
     try {
-      console.log('__postComments1=>', payload);//userId 게시글 번호
-      console.log('__postComments2=>', payload.userId);//userId 게시글 번호
+      console.log("__postComments1=>", payload); //userId 게시글 번호
+      console.log("__postComments2=>", payload.userId); //userId 게시글 번호
       const refresh_token = cookies.get("Authorization");
-      console.log('댓글쓸때 토큰', refresh_token);
-      const data = await axios.post(`${process.env.REACT_APP_IP_ADDRESS}/comment/auth/${payload.userId}`, payload, {
-        headers: {
-          Authorization: refresh_token
-        },
-      });
+      console.log("댓글쓸때 토큰", refresh_token);
+      const data = await axios.post(
+        `${process.env.REACT_APP_IP_ADDRESS}/comment/auth/${payload.userId}`,
+        payload,
+        {
+          headers: {
+            Authorization: refresh_token,
+          },
+        }
+      );
       // const data = await axios.post("http://localhost:3001/comments", payload);
       //const data = await axios.post(`${API_COMMENT}`, payload);
       // return thunkAPI.fulfillWithValue(payload);
@@ -36,13 +40,16 @@ export const __getComments = createAsyncThunk(
   "comments/getComments",
   async (payload, thunkAPI) => {
     try {
-      console.log('__getComments=>');
+      console.log("__getComments=>");
       const refresh_token = cookies.get("Authorization");
-      const data = await axios.get(`${process.env.REACT_APP_IP_ADDRESS}/comment/all`,{
-        headers: {
-          Authorization: refresh_token
-        },
-      });
+      const data = await axios.get(
+        `${process.env.REACT_APP_IP_ADDRESS}/comment/all`,
+        {
+          headers: {
+            Authorization: refresh_token,
+          },
+        }
+      );
       //const data = await axios.get(`${API_COMMENT}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -56,11 +63,14 @@ export const __deleteComments = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const refresh_token = cookies.get("Authorization");
-      await axios.delete(`${process.env.REACT_APP_IP_ADDRESS}/comment/auth/${payload}`,{
-        headers: {
-          Authorization: refresh_token
-        },
-      });
+      await axios.delete(
+        `${process.env.REACT_APP_IP_ADDRESS}/comment/auth/${payload}`,
+        {
+          headers: {
+            Authorization: refresh_token,
+          },
+        }
+      );
       //await axios.delete(`${API_COMMENT}/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
@@ -73,14 +83,18 @@ export const __updateComments = createAsyncThunk(
   "comments/updatecomments",
   async (payload, thunkAPI) => {
     try {
-      console.log('__updateComments=>',payload);
+      console.log("__updateComments=>", payload);
       const refresh_token = cookies.get("Authorization");
       await axios.patch(
-        `${process.env.REACT_APP_IP_ADDRESS}/comment/auth/${payload.id}`,payload,{
+        `${process.env.REACT_APP_IP_ADDRESS}/comment/auth/${payload.id}`,
+        payload,
+        {
           headers: {
-            Authorization: refresh_token+'1234567'
+
+            Authorization: refresh_token
           },
-        });
+        }
+      );
       //await axios.patch(`${API_TODOS}/${payload.id}`, payload);
       thunkAPI.dispatch(__getComments());
       return thunkAPI.fulfillWithValue(payload);
