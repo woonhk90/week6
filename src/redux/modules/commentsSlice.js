@@ -78,7 +78,7 @@ export const __updateComments = createAsyncThunk(
       await axios.patch(
         `${process.env.REACT_APP_IP_ADDRESS}/comment/auth/${payload.id}`,payload,{
           headers: {
-            Authorization: refresh_token+'1234567'
+            Authorization: refresh_token
           },
         });
       //await axios.patch(`${API_TODOS}/${payload.id}`, payload);
