@@ -3,33 +3,24 @@ import MypageTodo from "./MypageTodo";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector} from "react-redux";
+import { __getTodos } from "../redux/modules/etcSlice";
 
 const cookies = new Cookies();
 
 
 const Mypage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    __getUserInfo()
-  },[])
+  const infos = useSelector((state) => state);
+  console.log(infos);
+  const todos = useSelector((state) => state.etc.todos);
+  useEffect(() => {
+    dispatch(__getTodos());
+  }, [dispatch]);
 
-  const refresh_token = cookies.get("Authorization");
-  const __getUserInfo = async() => {
-    try {
-      const data = await axios.get(`http://13.125.252.187/api/login`, {
-        headers: {
-          Authorization: refresh_token
-        },
-      });
-      console.log("로그인성공데이터1:", data);
-      if(!data){navigate("/login")}
-    } catch {
-      // 오류 발생시 실행
-    }
-  }
-
-  
+   
 
   return (
     <div>
@@ -37,7 +28,11 @@ const Mypage = () => {
         <h1>닉네임</h1>
       </div>
       <div>내 게시글 확인</div>
-      <MypageTodo />
+      {todos?.map((todo) => (
+        console.log(todo)
+          // <MainTodo key={todo.id} todo={todo} />
+          // <MypageTodo />
+        ))}
     </div>
   );
 };

@@ -96,7 +96,7 @@ const Signin = () => {
 
 
       try {
-        const data = await axios.post(`http://13.125.20.230/api/member/signup`, userInfo);
+        const data = await axios.post(`${process.env.REACT_APP_IP_ADDRESS}/member/signup`, userInfo);
         console.log("회원가입리턴데이터=>", data);
         if(data.data){
           navigate("/");
@@ -114,12 +114,12 @@ const Signin = () => {
 
   const onClickOverlap = async (flag) => {
     try {
-      const data = await axios.post(`http://13.125.20.230/api/member/checkup`, { flag, val: userInfo.userId });
+      const data = await axios.post(`${process.env.REACT_APP_IP_ADDRESS}/member/checkup`, { flag, val: userInfo.userId });
       console.log('DATA:', data);
       data ? window.alert("사용가능한 아이디 입니다.") : window.alert("사용불가능한 아이디 입니다.")
       userInfo.idOverlap=data;
-    } catch {
-      // 오류 발생시 실행
+    } catch (error){
+      alert('중복된 아이디 입니다.');      
     }
 
   }
