@@ -18,7 +18,7 @@ export const __getTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const refresh_token = cookies.get("Authorization");
-      const data = await axios.get("http://13.125.20.230/api/article/all",{
+      const data = await axios.get(`${process.env.REACT_APP_IP_ADDRESS}/article/all`,{
         headers: {
           Authorization: refresh_token
         },
@@ -36,7 +36,7 @@ export const __deleteTodos = createAsyncThunk(
     try {
       console.log("__deleteTodos=>",payload);
       const refresh_token = cookies.get("Authorization");
-      const data = await axios.delete(`http://13.125.20.230/api/article/auth/${payload}`,{
+      const data = await axios.delete(`${process.env.REACT_APP_IP_ADDRESS}/article/auth/${payload}`,{
         headers: {
           Authorization: refresh_token
         },
@@ -54,7 +54,7 @@ export const __postTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const refresh_token = cookies.get("Authorization");
-      const data = await axios.post("http://13.125.20.230/api/article/auth", payload,{
+      const data = await axios.post(`${process.env.REACT_APP_IP_ADDRESS}/article/auth`, payload,{
         headers: {
           Authorization: refresh_token
         },
@@ -73,7 +73,7 @@ export const __putTodos = createAsyncThunk(
     try {
       console.log('__putTodos=>',payload);
       const refresh_token = cookies.get("Authorization");
-      await axios.patch(`http://13.125.20.230/api/article/auth/${payload.id}`, payload,{
+      await axios.patch(`${process.env.REACT_APP_IP_ADDRESS}/article/auth/${payload.id}`, payload,{
         headers: {
           Authorization: refresh_token
         },

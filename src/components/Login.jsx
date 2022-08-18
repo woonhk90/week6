@@ -17,7 +17,7 @@ export function setRefreshTokenToCookie(data) {
   let now = new Date();
   // let after1m = new Date();
   // after1m.setMinutes(now.getMinutes() + 10);
-  now.setMinutes(now.getMinutes()+30);
+  now.setMinutes(now.getMinutes() + 30);
   cookies.set("Authorization", data, { path: "/", expires: now });
 }
 
@@ -31,11 +31,20 @@ const Login = () => {
     password: '',
   });
 
+  const {userId,password}=login
+
   const onSubmitEventHandler = async () => {
-    // const refresh_token = cookies.get("Authorization");
+    if(userId.trim()===''){
+      window.alert("아이디를 입력해주세요.");
+      return false;
+    }
+    if(password.trim()===''){
+      window.alert("비밀번호를 입력해주세요.");
+      return false;
+    }
     try {
       const data = await axios.post(`${process.env.REACT_APP_IP_ADDRESS}/member/login`, login, {
-      // const data = await axios.post(`${process.env.REACT_APP_TEST_IP_ADDRESS}/login`, login, {
+        // const data = await axios.post(`${process.env.REACT_APP_TEST_IP_ADDRESS}/login`, login, {
         headers: {
 
         },
@@ -46,9 +55,9 @@ const Login = () => {
       // data?navigate('/main'):window.alert("로그인 실패하였습니다.");
       const token = data.headers.authorization;
       setRefreshTokenToCookie(token);
-      data.status===200?navigate('/main'):window.alert("로그인 실패하였습니다.");
+      data.status === 200 ? navigate('/main') : window.alert("로그인 실패하였습니다.");
     } catch {
-      // 오류 발생시 실행
+      alert('사용자를 찾을 수 없습니다.');
     }
 
 

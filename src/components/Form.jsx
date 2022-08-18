@@ -45,7 +45,7 @@ const Form = () => {
         const refresh_token = cookies.get("Authorization");
         try {
           console.log("입력값",title,content,refresh_token);
-          const data = await axios.post(`http://13.125.20.230/api/article/auth`,{title,content},{
+          const data = await axios.post(`${process.env.REACT_APP_IP_ADDRESS}/article/auth`,{title,content},{
             headers: {
               Authorization: refresh_token
             },
