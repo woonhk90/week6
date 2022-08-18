@@ -1,21 +1,4 @@
 {
-  "todos": [
-    {
-      "title": "asd",
-      "content": "asd",
-      "id": 1
-    }
-  ],
-  "comments": [
-    {
-      "userContent": "zxczxc",
-      "userId": "1",
-      "id": 1
-    },
-    {
-      "userContent": "123123123123123",
-      "userId": "1",
-      "id": 2
-    }
-  ]
+  "todos": [],
+  "comments": []
 }
