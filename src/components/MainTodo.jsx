@@ -5,40 +5,43 @@ import { useDispatch } from "react-redux";
 import React from "react";
 import CommonWhiteButton from "../components/elements/CommonWhiteButton";
 import { __deleteTodos } from "../redux/modules/etcSlice";
+import bgImg from "../img/programming.jpg";
 
 const MainTodo = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   return (
-    <StTodoList onClick={() => navigate(`/detail/${props.todo.id}`)}>
-      <StTextContainer>
-        <StListtitleheart>
-          <StListtitle>제목:{props.todo.title}</StListtitle>
-          <Stheart
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            좋아요
-          </Stheart>
-        </StListtitleheart>
+    <StimgWrap>
+      <StTodoList onClick={() => navigate(`/detail/${props.todo.id}`)}>
+        <StTextContainer>
+          <StListtitleheart>
+            <StListtitle>제목:{props.todo.title}</StListtitle>
+            <Stheart
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              좋아요
+            </Stheart>
+          </StListtitleheart>
 
-        <StListWriter>작성자:</StListWriter>
+          <StListWriter>작성자:</StListWriter>
 
-        <Stdeleteandtime>
-          <CommonWhiteButton
-            text='삭제하기'
-            width='10ch'
-            onClick={(e) => {
-              e.stopPropagation();
-              dispatch(__deleteTodos(props.todo.id));
-            }}
-          />
-          <Stwritetime>2022.08.xx</Stwritetime>
-        </Stdeleteandtime>
-      </StTextContainer>
-    </StTodoList>
+          <Stdeleteandtime>
+            <CommonWhiteButton
+              text='삭제하기'
+              width='10ch'
+              onClick={(e) => {
+                e.stopPropagation();
+                dispatch(__deleteTodos(props.todo.id));
+              }}
+            />
+            <Stwritetime>2022.08.xx</Stwritetime>
+          </Stdeleteandtime>
+        </StTextContainer>
+      </StTodoList>
+    </StimgWrap>
   );
 };
 
@@ -82,3 +85,16 @@ const StTextContainer = styled.div``;
 const Stheart = styled.button``;
 
 const Stwritetime = styled.div``;
+
+const StimgWrap = styled.div`
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: url(${bgImg}) no-repeat 50% 50%;
+  background-size: cover;
+
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff; */
+`;
