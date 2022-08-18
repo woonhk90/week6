@@ -90,7 +90,8 @@ export const __updateComments = createAsyncThunk(
         payload,
         {
           headers: {
-            Authorization: refresh_token,
+
+            Authorization: refresh_token
           },
         }
       );

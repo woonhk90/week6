@@ -11,9 +11,9 @@ import Button from "./elements/Button";
 import Input from "./elements/Input";
 import CommonWhiteButton from "../components/elements/CommonWhiteButton";
 
-const Comment = () => {
+const Comment = ({userNic}) => {
   const dispatch = useDispatch();
-
+console.log('사람이름',userNic);
   // const  {comments}  = useSelector((state) => state.todos);
   const comments = useSelector((state) => state.comments.comments);
   console.log("COMMENTS=>", comments);
@@ -65,7 +65,6 @@ const Comment = () => {
         </div>
         <ShowHideBox>
           <CommentForm onSubmit={postComment}>
-            <CommentUser>작성자명:OO</CommentUser>
             <Input
               type='text'
               name='content'

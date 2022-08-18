@@ -9,18 +9,18 @@ import { __deleteTodos } from "../redux/modules/etcSlice";
 const MainTodo = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+console.log('PROPS=>',props);
   return (
     <StTodoList onClick={() => navigate(`/detail/${props.todo.id}`)}>
       <StTextContainer>
         <StListtitleheart>
           <StListtitle>제목:{props.todo.title}</StListtitle>
 
-          <Stwritetime>2022.08.xx</Stwritetime>
+          <Stwritetime>{props.todo.createdAt}</Stwritetime>
         </StListtitleheart>
 
         <Stdeleteanduser>
-          <StListWriter>작성자:</StListWriter>
+          <StListWriter>작성자: {props.todo.userNic}</StListWriter>
 
           <CommonWhiteButton
             text='삭제하기'

@@ -118,7 +118,7 @@ const ImgDiv = styled.div`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: url(${bgImg}) no-repeat 50% 50%;
+  background: url(${bgImg}) no-repeat 50% 25%;
   background-size: cover;
 
   display: flex;
