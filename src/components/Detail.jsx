@@ -19,7 +19,7 @@ const Detail = () => {
   useEffect(() => {
     dispatch(__getTodos());
   }, [dispatch]);
-console.log("AAAAAAA",todo);
+
   return (
     <div>
       <Stbox>
@@ -53,7 +53,7 @@ console.log("AAAAAAA",todo);
           }}
         />
       </StDetailcommentbox>
-      <Comment userNic={todo?.userNic}/>
+      <Comment userNic={todo?.userNic} />
     </div>
   );
 };
