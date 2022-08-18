@@ -1,16 +1,16 @@
-import Form from "../components/Form";
+import TodoList from "../components/TodoList";
 import Layout from "../components/layout/Layout";
 import Header from "../components/layout/Header";
 
-const TodoForm = () => {
+const TodoListPage = () => {
   return (
     <div>
       <Layout>
         <Header />
-        <Form />
+        <TodoList />
       </Layout>
     </div>
   );
 };
 
-export default TodoForm;
+export default TodoListPage;
