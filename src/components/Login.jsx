@@ -27,14 +27,14 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [login, setLogin] = React.useState({
-    username: '',
+    userId: '',
     password: '',
   });
 
-  const {username,password}=login
+  const {userId,password}=login
 
   const onSubmitEventHandler = async () => {
-    if(username.trim()===''){
+    if(userId.trim()===''){
       window.alert("아이디를 입력해주세요.");
       return false;
     }
@@ -43,8 +43,8 @@ const Login = () => {
       return false;
     }
     try {
-      console.log('로그인테이터=>',login);
-      const data = await axios.post(`http://15.165.160.40/api/login`, login, {
+      console.log('로그인테스트=>',login);
+      const data = await axios.post(`${process.env.REACT_APP_IP_ADDRESS}/member/login`, login, {
         // const data = await axios.post(`${process.env.REACT_APP_TEST_IP_ADDRESS}/login`, login, {
         headers: {
 
@@ -78,7 +78,7 @@ const Login = () => {
           <LoginTitle>로그인</LoginTitle>
           <LoginForm>
             <div>
-              <Input type={'text'} width={'500px'} id={'username'} name={'username'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"아이디를 입력하세요."} autoFocus={'autoFocus'} />
+              <Input type={'text'} width={'500px'} id={'userId'} name={'userId'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"아이디를 입력하세요."} autoFocus={'autoFocus'} />
             </div>
             <div>
               <Input type={'password'} width={'500px'} id={'password'} name={'password'} maxLength={'20'} onChange={onChangeEventHandler} placeholder={"비밀번호를 입력하세요."} />
