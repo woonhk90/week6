@@ -52,6 +52,7 @@ const CommentView = ({ comment }) => {
           <CommentContent>
             {!editComment ? (
               <div>
+                <CommentTop>닉네임: {comment.userNic}</CommentTop>
                 <CommentBottom className='comment_view'>
                   {comment.content}
                 </CommentBottom>
