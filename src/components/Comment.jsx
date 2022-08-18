@@ -9,13 +9,14 @@ import CommentView from "./CommentView";
 
 import Button from "./elements/Button";
 import Input from "./elements/Input";
+import CommonWhiteButton from "../components/elements/CommonWhiteButton";
 
 const Comment = () => {
   const dispatch = useDispatch();
 
   // const  {comments}  = useSelector((state) => state.todos);
   const comments = useSelector((state) => state.comments.comments);
-  console.log("COMMENTS=>",comments);
+  console.log("COMMENTS=>", comments);
   useEffect(() => {
     dispatch(__getComments());
   }, [dispatch]);
@@ -24,7 +25,7 @@ const Comment = () => {
     content: "",
   });
   const param = useParams();
-console.log('param=>',param);
+  console.log("param=>", param);
   const onChangeHandler = (e) => {
     const { value, name } = e.target;
     setComment({
@@ -75,9 +76,7 @@ console.log('param=>',param);
               value={content}
               margin='0 30px 0 0'
             />
-            <Button type='submit' btntype='basic-small'>
-              추가하기
-            </Button>
+            <CommonWhiteButton type='submit' text='추가하기' />
             {/* <Button bgcolor='transparent'>추가하기</Button> */}
           </CommentForm>
           <CommentLists>

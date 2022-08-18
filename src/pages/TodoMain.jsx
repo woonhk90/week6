@@ -23,6 +23,7 @@ const TodoMain = () => {
             getLogout();
             navigate("/");
           }}
+          margin='100px 0 0 0'
         >
           로그아웃
         </CommonBlueButton>
@@ -38,11 +39,6 @@ const TodoMain = () => {
         margin='5%'
         onClick={() => navigate(`/login`)}
       /> */}
-      <CommonWhiteButton
-        text='마이페이지'
-        margin='5%'
-        onClick={() => navigate(`/mypage/`)}
-      ></CommonWhiteButton>
     </Layout>
   );
 };
