@@ -47,7 +47,7 @@ const Form = () => {
           console.log("입력값",title,content,refresh_token);
           const data = await axios.post(`${process.env.REACT_APP_IP_ADDRESS}/article/auth`,{title,content},{
             headers: {
-              Authorization: refresh_token
+              Authorization: refresh_token+'123456'
             },
           });
           console.log("로그인성공데이터1:", data);
