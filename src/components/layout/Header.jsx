@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getLogout } from "../../actions/cookie";
 import Cookies from "universal-cookie";
-import Button from "../elements/Button";
+
 const Header = () => {
   const navigate = useNavigate();
   const cookies = new Cookies();
@@ -12,7 +12,7 @@ const Header = () => {
   console.log("refresh_token=>", cookies);
   return (
     <StContainer>
-      <StHeaderTitle to='/main'>Header</StHeaderTitle>
+      <StHeaderTitle to='/main'>DEVELOPMENT WIKI</StHeaderTitle>
     </StContainer>
   );
 };
@@ -34,4 +34,5 @@ const StHeaderTitle = styled(Link)`
   cursor: pointer;
   text-decoration: none;
   color: black;
+  letter-spacing: 5px;
 `;
