@@ -19,12 +19,12 @@ const Detail = () => {
   useEffect(() => {
     dispatch(__getTodos());
   }, [dispatch]);
-
+console.log("AAAAAAA",todo);
   return (
     <div>
       <Stbox>
         <StDetailcommentbox>
-          <div>작성자:</div>
+          <div>작성자: {todo?.userNic}</div>
           <CommonWhiteButton
             text='이전으로'
             width='100px'
@@ -53,7 +53,7 @@ const Detail = () => {
           }}
         />
       </StDetailcommentbox>
-      <Comment />
+      <Comment userNic={todo?.userNic}/>
     </div>
   );
 };

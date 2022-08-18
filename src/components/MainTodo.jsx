@@ -5,43 +5,34 @@ import { useDispatch } from "react-redux";
 import React from "react";
 import CommonWhiteButton from "../components/elements/CommonWhiteButton";
 import { __deleteTodos } from "../redux/modules/etcSlice";
-import bgImg from "../img/programming.jpg";
 
 const MainTodo = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+console.log('PROPS=>',props);
   return (
-    <StimgWrap>
-      <StTodoList onClick={() => navigate(`/detail/${props.todo.id}`)}>
-        <StTextContainer>
-          <StListtitleheart>
-            <StListtitle>제목:{props.todo.title}</StListtitle>
-            <Stheart
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              좋아요
-            </Stheart>
-          </StListtitleheart>
+    <StTodoList onClick={() => navigate(`/detail/${props.todo.id}`)}>
+      <StTextContainer>
+        <StListtitleheart>
+          <StListtitle>제목:{props.todo.title}</StListtitle>
 
-          <StListWriter>작성자:</StListWriter>
+          <Stwritetime>{props.todo.createdAt}</Stwritetime>
+        </StListtitleheart>
 
-          <Stdeleteandtime>
-            <CommonWhiteButton
-              text='삭제하기'
-              width='10ch'
-              onClick={(e) => {
-                e.stopPropagation();
-                dispatch(__deleteTodos(props.todo.id));
-              }}
-            />
-            <Stwritetime>2022.08.xx</Stwritetime>
-          </Stdeleteandtime>
-        </StTextContainer>
-      </StTodoList>
-    </StimgWrap>
+        <Stdeleteanduser>
+          <StListWriter>작성자: {props.todo.userNic}</StListWriter>
+
+          <CommonWhiteButton
+            text='삭제하기'
+            width='10ch'
+            onClick={(e) => {
+              e.stopPropagation();
+              dispatch(__deleteTodos(props.todo.id));
+            }}
+          />
+        </Stdeleteanduser>
+      </StTextContainer>
+    </StTodoList>
   );
 };
 
@@ -54,7 +45,7 @@ const StTodoList = styled.div`
   outline-color: #eee;
   padding: 20px;
   box-sizing: border-box;
-
+  margin-bottom: 30px;
   &:hover {
     cursor: pointer;
   }
@@ -66,7 +57,7 @@ const StListtitleheart = styled.div`
   justify-content: space-between;
 `;
 
-const Stdeleteandtime = styled.div`
+const Stdeleteanduser = styled.div`
   font-size: 20px;
   display: flex;
   justify-content: space-between;
@@ -82,19 +73,6 @@ const StListWriter = styled.div`
 
 const StTextContainer = styled.div``;
 
-const Stheart = styled.button``;
-
-const Stwritetime = styled.div``;
-
-const StimgWrap = styled.div`
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background: url(${bgImg}) no-repeat 50% 50%;
-  background-size: cover;
-
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff; */
+const Stwritetime = styled.div`
+  margin-bottom: 50px;
 `;

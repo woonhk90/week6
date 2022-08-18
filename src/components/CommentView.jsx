@@ -7,6 +7,8 @@ import {
 } from "../redux/modules/commentsSlice";
 import Button from "./elements/Button";
 import Input from "./elements/Input";
+import CommonBlueButton from "../components/elements/CommonBlueButton";
+import CommonWhiteButton from "../components/elements/CommonWhiteButton";
 
 const CommentView = ({ comment }) => {
   const dispatch = useDispatch();
@@ -50,6 +52,7 @@ const CommentView = ({ comment }) => {
           <CommentContent>
             {!editComment ? (
               <div>
+                <CommentTop>닉네임: {comment.userNic}</CommentTop>
                 <CommentBottom className='comment_view'>
                   {comment.content}
                 </CommentBottom>
@@ -82,24 +85,20 @@ const CommentView = ({ comment }) => {
                 />
               </div>
             ) : (
-              <div>
-                <Button
-                  btntype='ui-comment'
+              <StCommentbox>
+                <CommonWhiteButton
+                  text='취소'
                   onClick={() => {
                     updateCommentInput();
                   }}
-                >
-                  취소
-                </Button>
-                <Button
-                  btntype='ui-comment'
+                ></CommonWhiteButton>
+                <CommonBlueButton
+                  text='저장'
                   onClick={() => {
                     updateCommentAction();
                   }}
-                >
-                  저장
-                </Button>
-              </div>
+                ></CommonBlueButton>
+              </StCommentbox>
             )}
           </CommentButton>
         </CommentBox>
@@ -133,4 +132,10 @@ const CommentButton = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: row;
+`;
+
+const StCommentbox = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 `;

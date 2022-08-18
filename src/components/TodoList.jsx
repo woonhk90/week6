@@ -10,7 +10,7 @@ const TodoList = () => {
   useEffect(() => {
     dispatch(__getTodos());
   }, [dispatch]);
-
+console.log('todoList=>',todos);
   return (
     <div>
       <StTodoList>

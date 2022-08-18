@@ -7,7 +7,7 @@ import Button from './elements/Button';
 import Input from './elements/Input';
 import axios from "axios";
 
-import bgImg from '../img/bg_img.jpg';
+import bgImg from "../img/programming.jpg";
 
 const Signin = () => {
   const dispatch = useDispatch();
@@ -130,20 +130,20 @@ const Signin = () => {
           <SigninTitle>회원가입</SigninTitle>
           <SigninForm>
             <div>
-              <label htmlFor="userId">아이디: </label>
-              <Input type={"text"} width={'600px'} name={"userId"} id={"userId"} value={userId} onChange={onChangeEventHandler} placeholder={'영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자'} /><span onClick={() => { onClickOverlap('idChk') }}>중복확인</span>
+              <InputLabel htmlFor="userId">아이디: </InputLabel>
+              <Input type={"text"} width={'550px'} name={"userId"} id={"userId"} value={userId} onChange={onChangeEventHandler} placeholder={'영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자'} /><OverLapSpan onClick={() => { onClickOverlap('idChk') }}>중복확인</OverLapSpan>
             </div>
             <div>
-              <label htmlFor="userNic">닉네임: </label>
-              <Input type={"text"} width={'600px'} name={"userNic"} id={"userNic"} onChange={onChangeEventHandler} placeholder={'영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자'} />
+              <InputLabel htmlFor="userNic">닉네임: </InputLabel>
+              <Input type={"text"} width={'550px'} name={"userNic"} id={"userNic"} onChange={onChangeEventHandler} placeholder={'영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 5~15자'} />
             </div>
             <div>
-              <label htmlFor="password">비밀번호 입력: </label>
-              <Input type={"password"} width={'600px'} name={"password"} id={"password"} onChange={onChangeEventHandler} placeholder={'최소 8 자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자'} />
+              <InputLabel htmlFor="password">비밀번호 입력: </InputLabel>
+              <Input type={"password"} width={'550px'} name={"password"} id={"password"} onChange={onChangeEventHandler} placeholder={'최소 8 자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자'} />
             </div>
             <div>
-              <label htmlFor="passwordConfirm">비밀번호 확인: </label>
-              <Input type={"password"} width={'600px'} name={"passwordConfirm"} id={"passwordConfirm"} onChange={onChangeEventHandler} />
+              <InputLabel htmlFor="passwordConfirm">비밀번호 확인: </InputLabel>
+              <Input type={"password"} width={'550px'} name={"passwordConfirm"} id={"passwordConfirm"} onChange={onChangeEventHandler} />
               <PwDoubleChk>{pwChk}</PwDoubleChk>
             </div>
             <ButtonBox>
@@ -163,7 +163,8 @@ const ImgDiv = styled.div`
   width:100vw;
   height:100vh;
   overflow:hidden;
-  background:url(${bgImg}) no-repeat 50% 50%;background-size:cover;
+  background: url(${bgImg}) no-repeat 50% 25%;
+  background-size: cover;
   color:#fff;
 
   display:flex;
@@ -173,7 +174,7 @@ const ImgDiv = styled.div`
 
 const SigninWrap = styled.div`
   width:1000px;
-  background-color:rgba(0,0,0,0.4);
+  background-color:rgba(0,0,0,0.8);
   text-align:center;
   display:flex;
   flex-direction:column;
@@ -191,6 +192,19 @@ const SigninForm = styled.div`
   box-sizing:border-box;
 `;
 
+const InputLabel = styled.label`
+  width:200px;
+  display:block;
+  float:left;
+  margin-left:25px;
+`;
+
+const OverLapSpan = styled.span`
+  cursor: pointer;
+  display:inline-block;
+  border: 1px solid rgb(255,255,255);
+  margin-left:15px;
+`;
 const PwDoubleChk = styled.div`
   color:rgb(255,0,0);
   font:20px/50px 'Arial','sans-serif';
