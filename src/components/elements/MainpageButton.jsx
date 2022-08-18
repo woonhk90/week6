@@ -40,6 +40,7 @@ const StContainer = styled.div`
   padding: 20px 40px;
   margin-top: 30px;
   cursor: pointer;
+  margin-bottom: 50px;
 `;
 
 const StRouteButton = styled.div`
